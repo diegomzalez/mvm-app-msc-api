@@ -16,3 +16,6 @@ export class CreateAdultDto extends CreateClientDto {
   readonly work: string;
 }
 export class UpdateAdultDto extends PartialType(CreateAdultDto) {}
+
+const adultDtos = [CreateAdultDto, UpdateAdultDto];
+export default adultDtos;

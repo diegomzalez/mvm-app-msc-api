@@ -19,3 +19,5 @@ export class CreatePersonDto extends Person {
   readonly lastName: string;
 }
 export class UpdatePersonDto extends PartialType(CreatePersonDto) {}
+const personDtos = [CreatePersonDto, UpdatePersonDto];
+export default personDtos;
