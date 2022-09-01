@@ -6,11 +6,12 @@ import { UsersModule } from './modules/users/module/users.module';
 import { RepresentativesModule } from './modules/representatives/module/representatives.module';
 import { ParentsModule } from './modules/parents/module/parents.module';
 import entitiesAndDtos from './entitiesAndDtos/entitiesAndDtos';
+import Endpoint from './endpoints/Endpoint';
 
 @Module({
   imports: [StudentsModule, UsersModule, RepresentativesModule, ParentsModule],
   controllers: [AppController],
-  providers: [AppService, ...entitiesAndDtos],
-  exports: [...entitiesAndDtos],
+  providers: [AppService, ...entitiesAndDtos, Endpoint],
+  exports: [...entitiesAndDtos, Endpoint],
 })
 export class AppModule {}
