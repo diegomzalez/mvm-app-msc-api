@@ -1,8 +1,8 @@
 export default class Endpoint {
   // Versions
-  private static v1 = 'v1';
+  private static versions = ['v1', 'v2'];
   // Current endpoint
-  private static currentEndpoint = `api/${this.v1}/`;
+  private static currentEndpoint = `api/${this.versions.at(-1)}/`;
   // Entities endpoints
   static usersEndpoint = this.currentEndpoint + 'users';
   static studentsEndpoint = this.currentEndpoint + 'students';
