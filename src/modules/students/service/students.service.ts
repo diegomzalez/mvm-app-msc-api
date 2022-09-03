@@ -6,7 +6,7 @@ import Student from '../entities/student.entity';
 export class StudentsService {
   students: Array<Student> = [
     {
-      id: '1',
+      id: '2102030542',
       name: 'Diego',
       middleName: 'Miguel',
       surname: 'González',
@@ -15,7 +15,7 @@ export class StudentsService {
       birthplace: 'Valecia',
       municipality: 'Valecia',
       state: 'Carabobo',
-      liveWith: 'Mamá',
+      liveWith: [['Mamá', '210230542']],
       ci: '30807618',
     },
   ];

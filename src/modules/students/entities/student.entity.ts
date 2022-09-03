@@ -5,5 +5,5 @@ export default class Student extends Client {
   birthplace: string;
   municipality: string;
   state: string;
-  liveWith: string;
+  liveWith: Array<Array<string> | string>;
 }

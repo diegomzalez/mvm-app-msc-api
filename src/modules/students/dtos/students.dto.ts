@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 import { CreateClientDto } from '../../../dtos/client.dto';
 
 export class CreateStudentDto extends CreateClientDto {
@@ -16,7 +16,7 @@ export class CreateStudentDto extends CreateClientDto {
   @IsString()
   state: string;
   @IsNotEmpty()
-  @IsString()
-  liveWith: string;
+  @IsArray()
+  liveWith: Array<Array<string> | string>;
 }
 export class UpdateStudentDto extends PartialType(CreateStudentDto) {}

@@ -10,16 +10,16 @@ export class RepresentativesService {
   private representatives: Array<Representative> = [
     {
       id: '1',
-      name: 'José',
+      name: 'Jose',
       middleName: 'Luis',
-      surname: 'Gallado',
-      lastName: 'Pérez',
+      surname: 'Gallardo',
+      lastName: 'Perez',
       ci: '25648965',
       degreeOfInstruction: 'SUP',
       direction: 'AV BOLIVAR VALENCIA CASA 58',
       phone: '0424-584-88-69',
       work: 'ING',
-      relationship: 'Madre',
+      representativeChildren: [['Father', '125648965']],
     },
   ];
   createRepresentative(
