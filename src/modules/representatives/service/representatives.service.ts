@@ -20,6 +20,7 @@ export class RepresentativesService {
       phone: '0424-584-88-69',
       work: 'ING',
       representativeChildren: [['Father', '125648965']],
+      totalDebs: [['']],
     },
   ];
   createRepresentative(

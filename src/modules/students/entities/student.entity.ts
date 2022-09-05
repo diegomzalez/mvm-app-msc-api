@@ -6,9 +6,9 @@ export default class Student extends Client {
   birthplace: string;
   municipality: string;
   state: string;
-  allergies: string;
+  allergies: string | null;
   liveWith: Array<Array<string> | string>;
   exoneration: number;
   months: Array<Month>;
-  debs: Array<string>;
+  debs: Array<string> | null;
 }

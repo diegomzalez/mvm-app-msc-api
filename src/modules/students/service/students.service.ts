@@ -17,6 +17,10 @@ export class StudentsService {
       state: 'Carabobo',
       liveWith: [['Mamá', '210230542']],
       ci: '30807618',
+      exoneration: 0,
+      allergies: null,
+      debs: null,
+      months: [],
     },
   ];
   createStudent(student: CreateStudentDto): Student {

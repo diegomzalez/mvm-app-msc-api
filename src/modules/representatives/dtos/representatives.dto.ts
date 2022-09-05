@@ -7,7 +7,7 @@ export class CreateRepresentativeDto extends CreateAdultDto {
   @IsNotEmpty()
   readonly representativeChildren: Array<Array<string>>;
   @IsArray()
-  readonly totalDebs: Array<string>;
+  readonly totalDebs: Array<Array<string>>;
 }
 export class UpdateRepresentativeDto extends PartialType(
   CreateRepresentativeDto,
