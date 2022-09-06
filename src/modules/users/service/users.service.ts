@@ -3,17 +3,7 @@ import { CreateUserDto, UpdateUserDto } from 'src/dtos/user.dto';
 import User from '../entities/user.entity';
 @Injectable()
 export class UsersService {
-  private users: Array<User> = [
-    {
-      id: 1,
-      name: 'Diego',
-      middleName: 'Miguel',
-      surname: 'González',
-      lastName: 'Calero',
-      email: 'diegom.gcalovi@gmail.com',
-      password: '123456',
-    },
-  ];
+  private users: Array<User> = [];
   getUsers(): Array<User> {
     return this.users;
   }

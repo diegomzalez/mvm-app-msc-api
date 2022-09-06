@@ -7,22 +7,7 @@ import Representative from '../entities/representative.entity';
 
 @Injectable()
 export class RepresentativesService {
-  private representatives: Array<Representative> = [
-    {
-      id: 1,
-      name: 'Jose',
-      middleName: 'Luis',
-      surname: 'Gallardo',
-      lastName: 'Perez',
-      ci: 25648965,
-      degreeOfInstruction: 'SUP',
-      direction: 'AV BOLIVAR VALENCIA CASA 58',
-      phone: '0424-584-88-69',
-      work: 'ING',
-      representativeChildren: [['Father', '125648965']],
-      totalDebs: [['']],
-    },
-  ];
+  private representatives: Array<Representative> = [];
   createRepresentative(
     representative: CreateRepresentativeDto,
   ): Representative {

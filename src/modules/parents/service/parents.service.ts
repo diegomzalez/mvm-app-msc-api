@@ -4,23 +4,7 @@ import Parent from '../entities/parent.entity';
 
 @Injectable()
 export class ParentsService {
-  private parents: Array<Parent> = [
-    {
-      id: 1,
-      name: 'Dilcia',
-      middleName: 'Mariangélis',
-      surname: 'Calero',
-      lastName: 'Oviedo',
-      ci: 1023042,
-      degreeOfInstruction: 'TEC',
-      direction:
-        'AV BOLIVAR CASA NRO 48 SECTOR CASCO DE TACARIGUA CENTRAL TACARIGUA CARABOBO  ZONA POSTAL  2010',
-      phone: '0412-441-97-26',
-      isAlive: true,
-      sex: 'F',
-      work: 'cashier',
-    },
-  ];
+  private parents: Array<Parent> = [];
   public getParents(): Array<Parent> {
     return this.parents;
   }

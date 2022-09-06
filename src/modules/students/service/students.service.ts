@@ -4,25 +4,7 @@ import Student from '../entities/student.entity';
 
 @Injectable()
 export class StudentsService {
-  students: Array<Student> = [
-    {
-      id: 2102030542,
-      name: 'Diego',
-      middleName: 'Miguel',
-      surname: 'González',
-      lastName: 'Calero',
-      birthday: 'January 4, 2005',
-      birthplace: 'Valecia',
-      municipality: 'Valecia',
-      state: 'Carabobo',
-      liveWith: [['Mamá', '210230542']],
-      ci: 30807618,
-      exoneration: 0,
-      allergies: null,
-      debs: null,
-      months: [],
-    },
-  ];
+  students: Array<Student> = [];
   createStudent(student: CreateStudentDto): Student {
     this.students.push(student);
     return student;
