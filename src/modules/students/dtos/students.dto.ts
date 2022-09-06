@@ -1,11 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import {
-  IsArray,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-  IsNull,
-} from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import Month from 'src/entities/month.entity';
 import { CreateClientDto } from '../../../dtos/client.dto';
 
