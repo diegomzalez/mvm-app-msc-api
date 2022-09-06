@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
@@ -30,18 +31,18 @@ export class RepresentativesController {
     return this.service.createRepresentative(representative);
   }
   @Get(':id')
-  getRepresentative(id: string): Representative {
+  getRepresentative(@Param('id', ParseIntPipe) id: number): Representative {
     return this.service.getRepresentative(id);
   }
   @Put(':id')
   updateRepresentative(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() representative: UpdateRepresentativeDto,
   ): Representative {
     return this.service.updateRepresentative(id, representative);
   }
   @Delete(':id')
-  deleteRepresentative(@Param('id') id: string): string {
+  deleteRepresentative(@Param('id', ParseIntPipe) id: number): string {
     return this.service.deleteRepresentative(id);
   }
 }

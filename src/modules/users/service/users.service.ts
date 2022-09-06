@@ -5,7 +5,7 @@ import User from '../entities/user.entity';
 export class UsersService {
   private users: Array<User> = [
     {
-      id: '1',
+      id: 1,
       name: 'Diego',
       middleName: 'Miguel',
       surname: 'González',
@@ -17,14 +17,14 @@ export class UsersService {
   getUsers(): Array<User> {
     return this.users;
   }
-  getUser(id: string): User {
+  getUser(id: number): User {
     return this.users.find((user) => user.id === id);
   }
   createUser(user: CreateUserDto): User {
     this.users.push(user);
     return user;
   }
-  updateUser(id: string, user: UpdateUserDto): User {
+  updateUser(id: number, user: UpdateUserDto): User {
     const index = this.users.findIndex((u) => u.id === id);
     this.users[index] = {
       ...this.users[index],
@@ -32,7 +32,7 @@ export class UsersService {
     };
     return this.users[index];
   }
-  deleteUser(id: string): string {
+  deleteUser(id: number): string {
     const index = this.users.findIndex((u) => u.id === id);
     delete this.users[index];
     return `User ${id} deleted successfully!`;

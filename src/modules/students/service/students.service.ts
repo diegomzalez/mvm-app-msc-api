@@ -6,7 +6,7 @@ import Student from '../entities/student.entity';
 export class StudentsService {
   students: Array<Student> = [
     {
-      id: '2102030542',
+      id: 2102030542,
       name: 'Diego',
       middleName: 'Miguel',
       surname: 'González',
@@ -16,7 +16,7 @@ export class StudentsService {
       municipality: 'Valecia',
       state: 'Carabobo',
       liveWith: [['Mamá', '210230542']],
-      ci: '30807618',
+      ci: 30807618,
       exoneration: 0,
       allergies: null,
       debs: null,
@@ -30,10 +30,10 @@ export class StudentsService {
   getStudents(): Array<Student> {
     return this.students;
   }
-  getStudent(id: string): Student {
+  getStudent(id: number): Student {
     return this.students.find((student) => student.id === id);
   }
-  updateStudent(id: string, student: UpdateStudentDto): Student {
+  updateStudent(id: number, student: UpdateStudentDto): Student {
     const index = this.students.findIndex((student) => student.id === id);
     this.students[index] = {
       ...this.students[index],
@@ -41,7 +41,7 @@ export class StudentsService {
     };
     return this.students[index];
   }
-  deleteStudent(id: string): string {
+  deleteStudent(id: number): string {
     delete this.students[id];
     return `Student ${id} deleted`;
   }

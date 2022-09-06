@@ -9,12 +9,12 @@ import Representative from '../entities/representative.entity';
 export class RepresentativesService {
   private representatives: Array<Representative> = [
     {
-      id: '1',
+      id: 1,
       name: 'Jose',
       middleName: 'Luis',
       surname: 'Gallardo',
       lastName: 'Perez',
-      ci: '25648965',
+      ci: 25648965,
       degreeOfInstruction: 'SUP',
       direction: 'AV BOLIVAR VALENCIA CASA 58',
       phone: '0424-584-88-69',
@@ -32,13 +32,13 @@ export class RepresentativesService {
   getRepresentatives(): Array<Representative> {
     return this.representatives;
   }
-  getRepresentative(id: string): Representative {
+  getRepresentative(id: number): Representative {
     return this.representatives.find(
       (representative) => representative.id === id,
     );
   }
   updateRepresentative(
-    id: string,
+    id: number,
     representative: UpdateRepresentativeDto,
   ): Representative {
     const index = this.representatives.findIndex(
@@ -50,7 +50,7 @@ export class RepresentativesService {
     };
     return this.representatives[index];
   }
-  deleteRepresentative(id: string): string {
+  deleteRepresentative(id: number): string {
     const index = this.representatives.findIndex(
       (representative) => representative.id === id,
     );

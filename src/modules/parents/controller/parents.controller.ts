@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
@@ -24,18 +25,18 @@ export class ParentsController {
     return this.service.createParent(parent);
   }
   @Get(':id')
-  public getParent(@Param('id') id: string): Parent {
+  public getParent(@Param('id', ParseIntPipe) id: number): Parent {
     return this.service.getParent(id);
   }
   @Put(':id')
   public updateParent(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() parent: UpdateParentDto,
   ): Parent {
     return this.service.updateParent(id, parent);
   }
   @Delete(':id')
-  public deleteParent(@Param('id') id: string): string {
+  public deleteParent(@Param('id', ParseIntPipe) id: number): string {
     return this.service.deleteParent(id);
   }
 }

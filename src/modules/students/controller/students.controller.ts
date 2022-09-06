@@ -4,10 +4,12 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
 import Endpoint from '../../../endpoints/Endpoint';
+
 import { CreateStudentDto, UpdateStudentDto } from '../dtos/students.dto';
 import Student from '../entities/student.entity';
 import { StudentsService } from '../service/students.service';
@@ -24,18 +26,18 @@ export class StudentsController {
     return this.service.createStudent(student);
   }
   @Get(':id')
-  getStudent(@Param('id') id: string): Student {
+  getStudent(@Param('id', ParseIntPipe) id: number): Student {
     return this.service.getStudent(id);
   }
   @Put('id')
   updateStudent(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() student: UpdateStudentDto,
   ): Student {
     return this.service.updateStudent(id, student);
   }
   @Delete('id')
-  deleteStudent(@Param('id') id: string): string {
+  deleteStudent(@Param('id') id: number): string {
     return this.service.deleteStudent(id);
   }
 }

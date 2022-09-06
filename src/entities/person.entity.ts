@@ -1,5 +1,5 @@
 export default class Person {
-  id: string;
+  id: number;
   name: string;
   middleName: string;
   surname: string;
