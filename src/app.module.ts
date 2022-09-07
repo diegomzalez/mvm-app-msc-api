@@ -7,19 +7,14 @@ import { RepresentativesModule } from './modules/representatives/module/represen
 import { ParentsModule } from './modules/parents/module/parents.module';
 import entitiesAndDtos from './entitiesAndDtos/entitiesAndDtos';
 import Endpoint from './endpoints/Endpoint';
-import { ConfigModule } from '@nestjs/config';
-import { environments } from './environments';
-
+import Config from './Config';
 @Module({
   imports: [
     StudentsModule,
     UsersModule,
     RepresentativesModule,
     ParentsModule,
-    ConfigModule.forRoot({
-      envFilePath: environments[process.env.NODE_ENV],
-      isGlobal: true,
-    }),
+    Config.init,
   ],
   controllers: [AppController],
   providers: [AppService, ...entitiesAndDtos, Endpoint],
