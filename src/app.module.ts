@@ -8,6 +8,8 @@ import { ParentsModule } from './modules/parents/module/parents.module';
 import entitiesAndDtos from './entitiesAndDtos/entitiesAndDtos';
 import Endpoint from './endpoints/Endpoint';
 import { ConfigModule } from '@nestjs/config';
+import { environments } from './environments';
+
 @Module({
   imports: [
     StudentsModule,
@@ -15,7 +17,7 @@ import { ConfigModule } from '@nestjs/config';
     RepresentativesModule,
     ParentsModule,
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      envFilePath: environments[process.env.NODE_ENV],
       isGlobal: true,
     }),
   ],
