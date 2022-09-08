@@ -1,4 +1,7 @@
+import { ConfigModule } from '@nestjs/config';
+import * as Joi from 'joi';
 import { Module } from '@nestjs/common';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { StudentsModule } from './modules/students/module/students.module';
@@ -7,14 +10,14 @@ import { RepresentativesModule } from './modules/representatives/module/represen
 import { ParentsModule } from './modules/parents/module/parents.module';
 import entitiesAndDtos from './entitiesAndDtos/entitiesAndDtos';
 import Endpoint from './endpoints/Endpoint';
-import Config from './Config';
+import envConfig from './config/index';
 @Module({
   imports: [
+    envConfig,
     StudentsModule,
     UsersModule,
     RepresentativesModule,
     ParentsModule,
-    Config.init,
   ],
   controllers: [AppController],
   providers: [AppService, ...entitiesAndDtos, Endpoint],
