@@ -1,4 +1,4 @@
-import mainDtos from '../dtos/mainDtos';
-import mainEntities from '../entities/mainEntities';
+import mainDtos from '../dto/mainDtos';
+import mainEntities from '../entity/mainEntities';
 
 export default [...mainEntities, ...mainDtos];

@@ -11,9 +11,7 @@ export default function (
   config: ConfigFactory<ConfigObject>,
 ): ConfigModuleOptions {
   return {
-    envFilePath: environments[process.env.NODE_ENV],
-    load: [config],
+    envFilePath: environments[process.env.NODE_ENV] || '.env',
     isGlobal: true,
-    validationSchema: schema,
   };
 }

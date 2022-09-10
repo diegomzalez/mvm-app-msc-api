@@ -1,4 +1,4 @@
-import Adult from '../../../entities/adult.entity';
+import Adult from '../../../entity/adult.entity';
 
 export default class Parent extends Adult {
   isAlive: boolean;

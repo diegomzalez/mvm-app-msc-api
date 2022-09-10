@@ -1,13 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { ConfigType } from '@nestjs/config';
-import config from './config/configModule/registerAs/registerAs';
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class AppService {
-  constructor(
-    @Inject(config.KEY) private configService: ConfigType<typeof config>,
-  ) {}
+  constructor(private configService: ConfigService) {}
   getHello(): string {
-    console.log(this.configService.database);
-    return `Hello, welcome to the MVM-MSC API :) `;
+    return `Hello, welcome to the MVM-MSC API :) ${this.configService.get<number>(
+      'PORT',
+    )}`;
   }
 }

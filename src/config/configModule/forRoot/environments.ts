@@ -1,4 +1,4 @@
 export default {
-  prod: '.env',
-  dev: '.dev.env',
+  production: '.env',
+  development: '.development.env',
 };

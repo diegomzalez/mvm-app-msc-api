@@ -8,14 +8,16 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import Endpoint from '../../../endpoints/Endpoint';
 import {
   CreateRepresentativeDto,
   UpdateRepresentativeDto,
-} from '../dtos/representatives.dto';
+} from '../dto/representatives.dto';
 import Representative from '../entities/representative.entity';
 import { RepresentativesService } from '../service/representatives.service';
 
+@ApiTags('representatives')
 @Controller(Endpoint.representativesEndpoint)
 export class RepresentativesController {
   constructor(private readonly service: RepresentativesService) {}

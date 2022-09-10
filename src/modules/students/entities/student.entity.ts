@@ -1,5 +1,5 @@
-import Month from 'src/entities/month.entity';
-import Client from '../../../entities/client.entity';
+import Month from '../../../entity/month.entity';
+import Client from '../../../entity/client.entity';
 
 export default class Student extends Client {
   birthday: string;

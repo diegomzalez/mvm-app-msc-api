@@ -1,4 +1,4 @@
 import forRoot from './configModule/forRoot/forRoot';
-import registerAs from './configModule/registerAs/registerAs';
+import config from './configModule/registerAs/config';
 
-export default forRoot(registerAs);
+export default forRoot(config);

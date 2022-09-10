@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import {
   CreateRepresentativeDto,
   UpdateRepresentativeDto,
-} from '../dtos/representatives.dto';
+} from '../dto/representatives.dto';
 import Representative from '../entities/representative.entity';
 
 @Injectable()

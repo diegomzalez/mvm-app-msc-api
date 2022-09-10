@@ -1,5 +1,3 @@
-import { ConfigModule } from '@nestjs/config';
-import * as Joi from 'joi';
 import { Module } from '@nestjs/common';
 
 import { AppController } from './app.controller';
@@ -10,10 +8,11 @@ import { RepresentativesModule } from './modules/representatives/module/represen
 import { ParentsModule } from './modules/parents/module/parents.module';
 import entitiesAndDtos from './entitiesAndDtos/entitiesAndDtos';
 import Endpoint from './endpoints/Endpoint';
-import envConfig from './config/index';
+import configModule from './config/index';
+
 @Module({
   imports: [
-    envConfig,
+    configModule,
     StudentsModule,
     UsersModule,
     RepresentativesModule,

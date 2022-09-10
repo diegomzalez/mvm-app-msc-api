@@ -8,11 +8,14 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
 import Endpoint from '../../../endpoints/Endpoint';
-import { CreateParentDto, UpdateParentDto } from '../dtos/parent.dto';
+import { CreateParentDto, UpdateParentDto } from '../dto/parent.dto';
 import Parent from '../entities/parent.entity';
 import { ParentsService } from '../service/parents.service';
 
+@ApiTags('parents')
 @Controller(Endpoint.parentsEndpoint)
 export class ParentsController {
   constructor(private readonly service: ParentsService) {}
