@@ -6,8 +6,8 @@ import { StudentsModule } from './modules/students/module/students.module';
 import { UsersModule } from './modules/users/module/users.module';
 import { RepresentativesModule } from './modules/representatives/module/representatives.module';
 import { ParentsModule } from './modules/parents/module/parents.module';
-import entitiesAndDtos from './entitiesAndDtos/entitiesAndDtos';
-import Endpoint from './endpoints/Endpoint';
+import entitiesAndDto from './entitiesAndDto/entitiesAndDto';
+import Endpoint from './endpoint/Endpoint';
 import configModule from './config/index';
 
 @Module({
@@ -19,7 +19,7 @@ import configModule from './config/index';
     ParentsModule,
   ],
   controllers: [AppController],
-  providers: [AppService, ...entitiesAndDtos, Endpoint],
-  exports: [...entitiesAndDtos, Endpoint],
+  providers: [AppService, ...entitiesAndDto, Endpoint],
+  exports: [...entitiesAndDto, Endpoint],
 })
 export class AppModule {}

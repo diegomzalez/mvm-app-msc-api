@@ -9,12 +9,12 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import Endpoint from '../../../endpoints/Endpoint';
+import Endpoint from '../../../endpoint/Endpoint';
 import {
   CreateRepresentativeDto,
   UpdateRepresentativeDto,
 } from '../dto/representatives.dto';
-import Representative from '../entities/representative.entity';
+import Representative from '../entity/representative.entity';
 import { RepresentativesService } from '../service/representatives.service';
 
 @ApiTags('representatives')

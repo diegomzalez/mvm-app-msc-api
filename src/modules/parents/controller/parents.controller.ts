@@ -10,9 +10,9 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import Endpoint from '../../../endpoints/Endpoint';
+import Endpoint from '../../../endpoint/Endpoint';
 import { CreateParentDto, UpdateParentDto } from '../dto/parent.dto';
-import Parent from '../entities/parent.entity';
+import Parent from '../entity/parent.entity';
 import { ParentsService } from '../service/parents.service';
 
 @ApiTags('parents')

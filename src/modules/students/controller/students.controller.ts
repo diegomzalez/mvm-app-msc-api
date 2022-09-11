@@ -9,10 +9,10 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import Endpoint from '../../../endpoints/Endpoint';
+import Endpoint from '../../../endpoint/Endpoint';
 
 import { CreateStudentDto, UpdateStudentDto } from '../dto/students.dto';
-import Student from '../entities/student.entity';
+import Student from '../entity/student.entity';
 import { StudentsService } from '../service/students.service';
 
 @ApiTags('students')

@@ -7,9 +7,7 @@ import schema from '../../joiSchemas/schema';
 
 import environments from './environments';
 
-export default function (
-  config: ConfigFactory<ConfigObject>,
-): ConfigModuleOptions {
+export default function (): ConfigModuleOptions {
   return {
     envFilePath: environments[process.env.NODE_ENV] || '.env',
     isGlobal: true,

@@ -6,5 +6,5 @@ import forRootConfig from './forRootConfig';
 export default function (
   registerAs: ConfigFactory<ConfigObject>,
 ): DynamicModule {
-  return ConfigModule.forRoot(forRootConfig(registerAs));
+  return ConfigModule.forRoot(forRootConfig());
 }

@@ -3,7 +3,7 @@ import {
   CreateRepresentativeDto,
   UpdateRepresentativeDto,
 } from '../dto/representatives.dto';
-import Representative from '../entities/representative.entity';
+import Representative from '../entity/representative.entity';
 
 @Injectable()
 export class RepresentativesService {
