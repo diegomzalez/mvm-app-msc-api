@@ -9,7 +9,9 @@ describe('RepresentativesController', () => {
       controllers: [RepresentativesController],
     }).compile();
 
-    controller = module.get<RepresentativesController>(RepresentativesController);
+    controller = module.get<RepresentativesController>(
+      RepresentativesController,
+    );
   });
 
   it('should be defined', () => {
