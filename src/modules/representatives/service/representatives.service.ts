@@ -3,7 +3,7 @@ import {
   CreateRepresentativeDto,
   UpdateRepresentativeDto,
 } from '../dto/representatives.dto';
-import Representative from '../entity/representative.entity';
+import Representative from '../entity/Representative.entity';
 
 @Injectable()
 export class RepresentativesService {
@@ -17,27 +17,22 @@ export class RepresentativesService {
   getRepresentatives(): Array<Representative> {
     return this.representatives;
   }
-  getRepresentative(id: number): Representative {
-    return this.representatives.find(
-      (representative) => representative.id === id,
-    );
+  getRepresentative(id: string): Representative {
+    return this.representatives.find((representative) => representative);
   }
   updateRepresentative(
-    id: number,
+    id: string,
     representative: UpdateRepresentativeDto,
   ): Representative {
     const index = this.representatives.findIndex(
-      (representative) => representative.id === id,
+      (representative) => representative,
     );
-    this.representatives[index] = {
-      ...this.representatives[index],
-      ...representative,
-    };
+
     return this.representatives[index];
   }
-  deleteRepresentative(id: number): string {
+  deleteRepresentative(id: string): string {
     const index = this.representatives.findIndex(
-      (representative) => representative.id === id,
+      (representative) => representative,
     );
     delete this.representatives[index];
     return `Representative ${id} was deleted`;

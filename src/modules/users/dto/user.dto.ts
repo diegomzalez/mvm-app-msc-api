@@ -1,4 +1,4 @@
-import { CreatePersonDto } from '../../../dto/person.dto';
+import { CreatePersonDto } from '../../../dto/Person.dto';
 import { IsString, IsEmail, IsNotEmpty } from 'class-validator';
 import { PartialType } from '@nestjs/swagger';
 export class CreateUserDto extends CreatePersonDto {

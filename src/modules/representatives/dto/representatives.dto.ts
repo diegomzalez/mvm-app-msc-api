@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/swagger';
 import { IsArray } from 'class-validator';
-import { CreateAdultDto } from '../../../dto/adult.dto';
+import { CreateAdultDto } from '../../../dto/Adult.dto';
 
 export class CreateRepresentativeDto extends CreateAdultDto {
   @IsArray()

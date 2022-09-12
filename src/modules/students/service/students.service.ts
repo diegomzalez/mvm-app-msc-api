@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateStudentDto, UpdateStudentDto } from '../dto/students.dto';
-import Student from '../entity/student.entity';
+import Student from '../entity/Student.entity';
 
 @Injectable()
 export class StudentsService {
@@ -12,18 +12,15 @@ export class StudentsService {
   getStudents(): Array<Student> {
     return this.students;
   }
-  getStudent(id: number): Student {
-    return this.students.find((student) => student.id === id);
+  getStudent(id: string): Student {
+    return this.students.find((student) => student);
   }
-  updateStudent(id: number, student: UpdateStudentDto): Student {
-    const index = this.students.findIndex((student) => student.id === id);
-    this.students[index] = {
-      ...this.students[index],
-      ...student,
-    };
+  updateStudent(id: string, student: UpdateStudentDto): Student {
+    const index = this.students.findIndex((student) => student);
+
     return this.students[index];
   }
-  deleteStudent(id: number): string {
+  deleteStudent(id: string): string {
     delete this.students[id];
     return `Student ${id} deleted`;
   }

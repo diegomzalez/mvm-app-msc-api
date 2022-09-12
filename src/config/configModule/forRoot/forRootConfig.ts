@@ -1,15 +1,8 @@
-import {
-  ConfigFactory,
-  ConfigModuleOptions,
-  ConfigObject,
-} from '@nestjs/config';
-import schema from '../../joiSchemas/schema';
-
 import environments from './environments';
 
-export default function (): ConfigModuleOptions {
+export default function () {
   return {
-    envFilePath: environments[process.env.NODE_ENV] || '.env',
     isGlobal: true,
+    envFilePath: environments[process.env.NODE_ENV] || '.env',
   };
 }

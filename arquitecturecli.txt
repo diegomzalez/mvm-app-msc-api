@@ -1,12 +1,30 @@
-nest g co modules/students/controller/students --flat
+# Entities
+
+# Students
 nest g mo modules/students/module/students --flat
+nest g co modules/students/controller/students --flat
 nest g s modules/students/service/students --flat
-nest g co modules/users/controller/users --flat
+
+# Users
 nest g mo modules/users/module/users --flat
+nest g co modules/users/controller/users --flat
 nest g s modules/users/service/users --flat
-nest g co modules/representatives/controller/representatives --flat
+
+
+# Representatives
 nest g mo modules/representatives/module/representatives --flat
+nest g co modules/representatives/controller/representatives --flat
 nest g s modules/representatives/service/representatives --flat
-nest g co modules/parents/controller/parents --flat
+
+# Parents
 nest g mo modules/parents/module/parents --flat
+nest g co modules/parents/controller/parents --flat
 nest g s modules/parents/service/parents --flat
+
+# Databases
+
+# MongoDB
+nest g mo database/modules/mongodb/module/mongodb --flat
+nest g co database/modules/mongodb/controller/mongodb --flat
+nest g s database/modules/mongodb/service/mongodb --flat
+

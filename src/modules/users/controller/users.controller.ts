@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from '../dto/user.dto';
 import Endpoint from '../../../endpoint/Endpoint';
-import User from '../entity/user.entity';
+import User from '../entity/User.entity';
 import { UsersService } from '../service/users.service';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -28,18 +28,15 @@ export class UsersController {
   }
 
   @Get(':id')
-  getUser(@Param('id', ParseIntPipe) id: number): User {
+  getUser(@Param('id') id: string): User {
     return this.service.getUser(id);
   }
   @Put(':id')
-  updateUser(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() user: UpdateUserDto,
-  ): User {
+  updateUser(@Param('id') id: string, @Body() user: UpdateUserDto): User {
     return this.service.updateUser(id, user);
   }
   @Delete(':id')
-  deleteUser(@Param('id', ParseIntPipe) id: number): string {
+  deleteUser(@Param('id') id: string): string {
     return this.service.deleteUser(id);
   }
 }

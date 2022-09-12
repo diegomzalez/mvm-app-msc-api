@@ -14,7 +14,7 @@ import {
   CreateRepresentativeDto,
   UpdateRepresentativeDto,
 } from '../dto/representatives.dto';
-import Representative from '../entity/representative.entity';
+import Representative from '../entity/Representative.entity';
 import { RepresentativesService } from '../service/representatives.service';
 
 @ApiTags('representatives')
@@ -33,18 +33,18 @@ export class RepresentativesController {
     return this.service.createRepresentative(representative);
   }
   @Get(':id')
-  getRepresentative(@Param('id', ParseIntPipe) id: number): Representative {
+  getRepresentative(@Param('id') id: string): Representative {
     return this.service.getRepresentative(id);
   }
   @Put(':id')
   updateRepresentative(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id') id: string,
     @Body() representative: UpdateRepresentativeDto,
   ): Representative {
     return this.service.updateRepresentative(id, representative);
   }
   @Delete(':id')
-  deleteRepresentative(@Param('id', ParseIntPipe) id: number): string {
+  deleteRepresentative(@Param('id') id: string): string {
     return this.service.deleteRepresentative(id);
   }
 }

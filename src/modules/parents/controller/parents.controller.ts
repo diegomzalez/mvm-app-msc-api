@@ -12,7 +12,7 @@ import { ApiTags } from '@nestjs/swagger';
 
 import Endpoint from '../../../endpoint/Endpoint';
 import { CreateParentDto, UpdateParentDto } from '../dto/parent.dto';
-import Parent from '../entity/parent.entity';
+import Parent from '../entity/Parent.entity';
 import { ParentsService } from '../service/parents.service';
 
 @ApiTags('parents')
@@ -20,26 +20,26 @@ import { ParentsService } from '../service/parents.service';
 export class ParentsController {
   constructor(private readonly service: ParentsService) {}
   @Get()
-  public getParents(): Array<Parent> {
-    return this.service.getParents();
+  public async getParents(): Promise<Parent[]> {
+    return await this.service.getParents();
   }
   @Post()
-  public createParent(@Body() parent: CreateParentDto): Parent {
-    return this.service.createParent(parent);
+  public async createParent(@Body() parent: CreateParentDto): Promise<Parent> {
+    return await this.service.createParent(parent);
   }
   @Get(':id')
-  public getParent(@Param('id', ParseIntPipe) id: number): Parent {
-    return this.service.getParent(id);
+  public async getParent(@Param('id') id: string): Promise<Parent> {
+    return await this.service.getParent(id);
   }
   @Put(':id')
-  public updateParent(
-    @Param('id', ParseIntPipe) id: number,
+  public async updateParent(
+    @Param('id') id: string,
     @Body() parent: UpdateParentDto,
-  ): Parent {
-    return this.service.updateParent(id, parent);
+  ): Promise<Parent> {
+    return await this.service.updateParent(id, parent);
   }
   @Delete(':id')
-  public deleteParent(@Param('id', ParseIntPipe) id: number): string {
-    return this.service.deleteParent(id);
+  public async deleteParent(@Param('id') id: string): Promise<string> {
+    return await this.service.deleteParent(id);
   }
 }

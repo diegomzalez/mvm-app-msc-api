@@ -1,4 +1,4 @@
-import Bill from './bill.entity';
+import Bill from './Bill.entity';
 
 export default class Month {
   bills: Array<Bill>;

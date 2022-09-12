@@ -1,7 +1,7 @@
 import { PartialType } from '@nestjs/swagger';
 import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import Month from '../../../entity/month.entity';
-import { CreateClientDto } from '../../../dto/client.dto';
+import Month from '../../../entity/Month.entity';
+import { CreateClientDto } from '../../../dto/Client.dto';
 
 export class CreateStudentDto extends CreateClientDto {
   @IsNotEmpty()

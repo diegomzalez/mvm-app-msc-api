@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/swagger';
 import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
-import { CreateAdultDto } from '../../../dto/adult.dto';
+import { CreateAdultDto } from '../../../dto/Adult.dto';
 
 export class CreateParentDto extends CreateAdultDto {
   @IsNotEmpty()

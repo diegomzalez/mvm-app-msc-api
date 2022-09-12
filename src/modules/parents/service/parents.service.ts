@@ -1,31 +1,34 @@
 import { Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+
 import { CreateParentDto, UpdateParentDto } from '../dto/parent.dto';
-import Parent from '../entity/parent.entity';
+import Parent from '../entity/Parent.entity';
+import ParentDocument from '../types/parent.type';
 
 @Injectable()
 export class ParentsService {
-  private parents: Array<Parent> = [];
-  public getParents(): Array<Parent> {
-    return this.parents;
+  constructor(
+    @InjectModel(Parent.name) private ParentModel: Model<ParentDocument>,
+  ) {}
+  public async getParents(): Promise<Parent[]> {
+    return this.ParentModel.find().exec();
   }
-  public getParent(id: number): Parent {
-    return this.parents.find((user) => user.id === id);
+  public async getParent(id: string): Promise<Parent> {
+    return this.ParentModel.findById(id).exec();
   }
-  public createParent(parent: CreateParentDto): Parent {
-    this.parents.push(parent);
-    return parent;
+  public async createParent(parent: CreateParentDto): Promise<Parent> {
+    const createdParent = new this.ParentModel(parent);
+    return await createdParent.save();
   }
-  public updateParent(id: number, parent: UpdateParentDto): Parent {
-    const index = this.parents.findIndex((user) => user.id === id);
-    this.parents[index] = {
-      ...this.parents[index],
-      ...parent,
-    };
-    return this.parents[index];
+  public async updateParent(
+    id: string,
+    parent: UpdateParentDto,
+  ): Promise<Parent> {
+    return await this.getParent(id);
   }
-  public deleteParent(id: number): string {
-    const index = this.parents.findIndex((user) => user.id === id);
-    delete this.parents[index];
-    return `Parent ${id} deleted`;
+  public async deleteParent(id: string): Promise<string> {
+    this.ParentModel.findByIdAndDelete(id);
+    return await `Parent ${id} deleted`;
   }
 }

@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { IsNotEmpty, IsString } from 'class-validator';
-import { CreateClientDto } from './client.dto';
+import { CreateClientDto } from './Client.dto';
 export class CreateAdultDto extends CreateClientDto {
   @IsNotEmpty()
   @IsString()
@@ -17,5 +17,4 @@ export class CreateAdultDto extends CreateClientDto {
 }
 export class UpdateAdultDto extends PartialType(CreateAdultDto) {}
 
-const adultDtos = [CreateAdultDto, UpdateAdultDto];
-export default adultDtos;
+export const adultDto = [CreateAdultDto, UpdateAdultDto];
