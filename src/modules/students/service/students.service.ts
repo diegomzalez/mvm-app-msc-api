@@ -1,27 +1,30 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+
 import { CreateStudentDto, UpdateStudentDto } from '../dto/students.dto';
 import Student from '../entity/Student.entity';
+import { StudentArrayType, StudentType } from '../types/Student.types';
+import StudentDocument from '../types/StudentDocument';
 
 @Injectable()
 export class StudentsService {
-  students: Array<Student> = [];
-  createStudent(student: CreateStudentDto): Student {
-    this.students.push(student);
-    return student;
+  constructor(
+    @InjectModel(Student.name) private studentModel: Model<StudentDocument>,
+  ) {}
+  async getStudents(): StudentArrayType {
+    return await this.studentModel.find().exec();
   }
-  getStudents(): Array<Student> {
-    return this.students;
+  async createStudent(student: CreateStudentDto): StudentType {
+    return await new this.studentModel(student).save();
   }
-  getStudent(id: string): Student {
-    return this.students.find((student) => student);
+  async getStudent(id: string): StudentType {
+    return await this.studentModel.findById(id).exec();
   }
-  updateStudent(id: string, student: UpdateStudentDto): Student {
-    const index = this.students.findIndex((student) => student);
-
-    return this.students[index];
+  async updateStudent(id: string, student: UpdateStudentDto): StudentType {
+    return await this.studentModel.findByIdAndUpdate(id, student).exec();
   }
-  deleteStudent(id: string): string {
-    delete this.students[id];
-    return `Student ${id} deleted`;
+  async deleteStudent(id: string) {
+    await this.studentModel.findByIdAndDelete(id);
   }
 }

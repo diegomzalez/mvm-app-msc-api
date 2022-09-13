@@ -1,0 +1,8 @@
+database:
+  mongo:
+    conn: 'mongodb'
+    user: 'root'
+    pass: 'root'
+    host: 'localhost'
+    port: 27017
+    dbName: 'msc'

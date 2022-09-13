@@ -1,25 +1,25 @@
-import Month from '../../../entity/Month.entity';
-import Client from '../../../entity/Client.entity';
+import Month from '../../entity/Month.entity';
+import Client from '../../entity/Client.entity';
 import { Prop, Schema } from '@nestjs/mongoose';
 
 @Schema()
 export default class Student extends Client {
-  @Prop({ type: String, required: true })
+  @Prop({ type: String })
   birthday: string;
-  @Prop({ type: String, required: true })
+  @Prop({ type: String })
   birthplace: string;
-  @Prop({ type: String, required: true })
+  @Prop({ type: String })
   municipality: string;
-  @Prop({ type: String, required: true })
+  @Prop({ type: String })
   state: string;
-  @Prop({ type: String, required: true })
-  allergies: string | null;
-  @Prop({ type: String, required: true })
-  liveWith: Array<Array<string> | string>;
+  @Prop({ type: String })
+  allergies: string;
+  @Prop({ type: String })
+  liveWith: string;
   @Prop({ type: Number, required: true })
   exoneration: number;
-  @Prop({ type: String, required: true })
-  months: Array<Month>;
-  @Prop({ type: String, required: true })
-  debs: Array<string> | null;
+  @Prop({ type: Array<Month> })
+  months: Month[];
+  @Prop({ type: Array<string> })
+  debs: string[];
 }

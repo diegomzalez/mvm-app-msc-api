@@ -1,5 +1,5 @@
 import { Prop, Schema } from '@nestjs/mongoose';
-import Person from '../../../entity/Person.entity';
+import Person from '../../entity/Person.entity';
 
 @Schema()
 export default class User extends Person {

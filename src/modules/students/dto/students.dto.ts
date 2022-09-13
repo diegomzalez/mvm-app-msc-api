@@ -1,32 +1,35 @@
 import { PartialType } from '@nestjs/swagger';
 import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import Month from '../../../entity/Month.entity';
-import { CreateClientDto } from '../../../dto/Client.dto';
+import Month from '../../entity/Month.entity';
+import { CreateClientDto } from '../../dto/Client.dto';
 
 export class CreateStudentDto extends CreateClientDto {
-  @IsNotEmpty()
   @IsString()
   birthday: string;
-  @IsNotEmpty()
+
   @IsString()
   birthplace: string;
-  @IsNotEmpty()
+
   @IsString()
   municipality: string;
-  @IsNotEmpty()
+
   @IsString()
   state: string;
-  @IsNotEmpty()
+
+  @IsString()
+  liveWith: string;
+
   @IsArray()
-  liveWith: Array<Array<string> | string>;
-  @IsArray()
-  debs: Array<string>;
+  debs: string[];
+
   @IsNumber()
   @IsNotEmpty()
   exoneration: number;
+
   @IsArray()
-  months: Array<Month>;
+  months: Month[];
+
   @IsString()
-  allergies: string | null;
+  allergies: string;
 }
 export class UpdateStudentDto extends PartialType(CreateStudentDto) {}

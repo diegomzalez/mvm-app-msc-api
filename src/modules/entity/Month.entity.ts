@@ -1,7 +1,7 @@
-import Bill from './Bill.entity';
+import { bills } from '../types/bills.type';
 
 export default class Month {
-  bills: Array<Bill>;
+  bills: bills;
   solvent: boolean;
   missing: number;
 }

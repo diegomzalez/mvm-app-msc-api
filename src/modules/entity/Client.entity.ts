@@ -3,6 +3,6 @@ import Person from './Person.entity';
 
 @Schema()
 export default class Client extends Person {
-  @Prop({ type: Number, required: true })
+  @Prop({ type: Number, unique: true })
   ci: number;
 }

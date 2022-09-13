@@ -1,26 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateUserDto, UpdateUserDto } from 'src/modules/users/dto/user.dto';
 import User from '../entity/User.entity';
+import { UserArrayType, UserType } from '../types/User.types';
+import UserDocument from '../types/UserDocument';
 @Injectable()
 export class UsersService {
-  private users: Array<User> = [];
-  getUsers(): Array<User> {
-    return this.users;
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+  async getUsers(): UserArrayType {
+    return await this.userModel.find().exec();
   }
-  getUser(id: string): User {
-    return this.users.find((user) => user);
+  async createUser(user: CreateUserDto): UserType {
+    return await new this.userModel(user).save();
   }
-  createUser(user: CreateUserDto): User {
-    this.users.push(user);
-    return user;
+  async getUser(id: string): UserType {
+    return await this.userModel.findById(id).exec();
   }
-  updateUser(id: string, user: UpdateUserDto): User {
-    const index = this.users.findIndex((u) => u);
-    return this.users[index];
+  async updateUser(id: string, user: UpdateUserDto): UserType {
+    return await this.userModel.findByIdAndUpdate(id, user);
   }
-  deleteUser(id: string): string {
-    const index = this.users.findIndex((u) => u);
-    delete this.users[index];
-    return `User ${id} deleted successfully!`;
+  async deleteUser(id: string) {
+    return await this.userModel.findByIdAndDelete(id);
   }
 }

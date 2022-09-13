@@ -4,11 +4,11 @@ import {
   Delete,
   Get,
   Param,
-  ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+
 import Endpoint from '../../../endpoint/Endpoint';
 import {
   CreateRepresentativeDto,
@@ -16,6 +16,10 @@ import {
 } from '../dto/representatives.dto';
 import Representative from '../entity/Representative.entity';
 import { RepresentativesService } from '../service/representatives.service';
+import {
+  RepresentativeArrayType,
+  RepresentativeType,
+} from '../types/Represesntative.types';
 
 @ApiTags('representatives')
 @Controller(Endpoint.representativesEndpoint)
@@ -23,28 +27,28 @@ export class RepresentativesController {
   constructor(private readonly service: RepresentativesService) {}
 
   @Get()
-  getRepresentatives(): Array<Representative> {
-    return this.service.getRepresentatives();
+  async getRepresentatives(): RepresentativeArrayType {
+    return await this.service.getRepresentatives();
   }
   @Post()
-  createRepresentative(
+  async createRepresentative(
     @Body() representative: CreateRepresentativeDto,
-  ): Representative {
-    return this.service.createRepresentative(representative);
+  ): RepresentativeType {
+    return await this.service.createRepresentative(representative);
   }
   @Get(':id')
-  getRepresentative(@Param('id') id: string): Representative {
-    return this.service.getRepresentative(id);
+  async getRepresentative(@Param('id') id: string): RepresentativeType {
+    return await this.service.getRepresentative(id);
   }
   @Put(':id')
-  updateRepresentative(
+  async updateRepresentative(
     @Param('id') id: string,
     @Body() representative: UpdateRepresentativeDto,
-  ): Representative {
-    return this.service.updateRepresentative(id, representative);
+  ): RepresentativeType {
+    return await this.service.updateRepresentative(id, representative);
   }
   @Delete(':id')
-  deleteRepresentative(@Param('id') id: string): string {
-    return this.service.deleteRepresentative(id);
+  async deleteRepresentative(@Param('id') id: string) {
+    return await this.service.deleteRepresentative(id);
   }
 }

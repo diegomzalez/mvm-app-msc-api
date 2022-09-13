@@ -1,40 +1,45 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+
 import {
   CreateRepresentativeDto,
   UpdateRepresentativeDto,
 } from '../dto/representatives.dto';
 import Representative from '../entity/Representative.entity';
+import RepresentativeDocument from '../types/RepresentativeDocument';
+import {
+  RepresentativeArrayType,
+  RepresentativeType,
+} from '../types/Represesntative.types';
 
 @Injectable()
 export class RepresentativesService {
-  private representatives: Array<Representative> = [];
-  createRepresentative(
+  constructor(
+    @InjectModel(Representative.name)
+    private representativeModel: Model<RepresentativeDocument>,
+  ) {}
+
+  async getRepresentatives(): RepresentativeArrayType {
+    return await this.representativeModel.find().exec();
+  }
+  async createRepresentative(
     representative: CreateRepresentativeDto,
-  ): Representative {
-    this.representatives.push(representative);
-    return representative;
+  ): RepresentativeType {
+    return await new this.representativeModel(representative).save();
   }
-  getRepresentatives(): Array<Representative> {
-    return this.representatives;
+  async getRepresentative(id: string): RepresentativeType {
+    return await this.representativeModel.findById(id).exec();
   }
-  getRepresentative(id: string): Representative {
-    return this.representatives.find((representative) => representative);
-  }
-  updateRepresentative(
+  async updateRepresentative(
     id: string,
     representative: UpdateRepresentativeDto,
-  ): Representative {
-    const index = this.representatives.findIndex(
-      (representative) => representative,
-    );
-
-    return this.representatives[index];
+  ): RepresentativeType {
+    return await this.representativeModel
+      .findByIdAndUpdate(id, representative)
+      .exec();
   }
-  deleteRepresentative(id: string): string {
-    const index = this.representatives.findIndex(
-      (representative) => representative,
-    );
-    delete this.representatives[index];
-    return `Representative ${id} was deleted`;
+  async deleteRepresentative(id: string) {
+    await this.representativeModel.findByIdAndDelete(id).exec();
   }
 }
