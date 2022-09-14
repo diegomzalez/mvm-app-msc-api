@@ -2,6 +2,7 @@ import { PartialType } from '@nestjs/swagger';
 import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import Month from '../../entity/Month.entity';
 import { CreateClientDto } from '../../dto/Client.dto';
+import Parent from 'src/modules/parents/entity/Parent.entity';
 
 export class CreateStudentDto extends CreateClientDto {
   @IsString()
@@ -15,6 +16,9 @@ export class CreateStudentDto extends CreateClientDto {
 
   @IsString()
   state: string;
+
+  @IsArray()
+  parents: Parent[];
 
   @IsString()
   liveWith: string;

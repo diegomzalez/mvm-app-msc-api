@@ -3,17 +3,15 @@ import mongoose from 'mongoose';
 import Student from '../../../modules/students/entity/Student.entity';
 
 import Adult from '../../entity/Adult.entity';
-import { representativeChildren } from '../types/representativeChildren.type';
 
 @Schema()
 export default class Representative extends Adult {
   @Prop({
     type: [String],
   })
-  representativeChildrenRelationship: representativeChildren;
+  representativeChildrenRelationship: string[];
   @Prop({
-    type: Array<mongoose.Schema.Types.ObjectId>,
-    ref: 'Student',
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
   })
-  representativeChildrenList: [Student];
+  representativeChildrenList: Student[];
 }

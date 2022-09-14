@@ -1,13 +1,13 @@
 import { PartialType } from '@nestjs/swagger';
 import { IsArray } from 'class-validator';
+import Student from 'src/modules/students/entity/Student.entity';
 import { CreateAdultDto } from '../../dto/Adult.dto';
-import { representativeChildren } from '../types/representativeChildren.type';
 
 export class CreateRepresentativeDto extends CreateAdultDto {
   @IsArray()
-  readonly representativeChildrenRelationship: representativeChildren;
+  readonly representativeChildrenRelationship: string[];
   @IsArray()
-  readonly representativeChildrenList: representativeChildren;
+  readonly representativeChildrenList: Student[];
 }
 export class UpdateRepresentativeDto extends PartialType(
   CreateRepresentativeDto,

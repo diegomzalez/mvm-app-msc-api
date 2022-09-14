@@ -1,5 +1,6 @@
 import { PartialType } from '@nestjs/swagger';
-import { IsBoolean, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsString } from 'class-validator';
+import Student from 'src/modules/students/entity/Student.entity';
 import { CreateAdultDto } from '../../dto/Adult.dto';
 
 export class CreateParentDto extends CreateAdultDto {
@@ -8,5 +9,8 @@ export class CreateParentDto extends CreateAdultDto {
 
   @IsString()
   readonly sex: string;
+
+  @IsArray()
+  readonly children: Student[];
 }
 export class UpdateParentDto extends PartialType(CreateParentDto) {}
