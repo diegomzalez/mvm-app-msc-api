@@ -1,4 +1,10 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsPositive,
+  Min,
+  IsOptional,
+} from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 import Person from '../entity/Person.entity';
 export class CreatePersonDto extends Person {
@@ -16,4 +22,13 @@ export class CreatePersonDto extends Person {
   readonly lastName: string;
 }
 export class UpdatePersonDto extends PartialType(CreatePersonDto) {}
-export const personDto = [CreatePersonDto, UpdatePersonDto];
+export class FilterPersonDto {
+  @IsOptional()
+  @IsPositive()
+  limit: number;
+
+  @IsOptional()
+  @Min(0)
+  offset: number;
+}
+export const personDto = [CreatePersonDto, UpdatePersonDto, FilterPersonDto];

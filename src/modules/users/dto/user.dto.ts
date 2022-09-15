@@ -1,4 +1,4 @@
-import { CreatePersonDto } from '../../dto/Person.dto';
+import { CreatePersonDto, FilterPersonDto } from '../../dto/Person.dto';
 import { IsString, IsEmail, IsNotEmpty } from 'class-validator';
 import { PartialType } from '@nestjs/swagger';
 export class CreateUserDto extends CreatePersonDto {
@@ -11,3 +11,5 @@ export class CreateUserDto extends CreatePersonDto {
   readonly password: string;
 }
 export class UpdateUserDto extends PartialType(CreateUserDto) {}
+
+export class FilterUserDto extends FilterPersonDto {}

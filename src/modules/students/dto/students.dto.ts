@@ -1,7 +1,13 @@
 import { PartialType } from '@nestjs/swagger';
-import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsPositive,
+  IsString,
+} from 'class-validator';
 import Month from '../../entity/Month.entity';
-import { CreateClientDto } from '../../dto/Client.dto';
+import { CreateClientDto, FilterClientDto } from '../../dto/Client.dto';
 import Parent from 'src/modules/parents/entity/Parent.entity';
 
 export class CreateStudentDto extends CreateClientDto {
@@ -27,6 +33,7 @@ export class CreateStudentDto extends CreateClientDto {
   debs: string[];
 
   @IsNumber()
+  @IsPositive()
   @IsNotEmpty()
   exoneration: number;
 
@@ -37,3 +44,5 @@ export class CreateStudentDto extends CreateClientDto {
   allergies: string;
 }
 export class UpdateStudentDto extends PartialType(CreateStudentDto) {}
+
+export class FilterStudentDto extends FilterClientDto {}

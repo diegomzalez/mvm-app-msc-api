@@ -6,11 +6,17 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { MongoIdPipe } from '../../../common/mongo-id.pipe';
 
 import Endpoint from '../../../endpoint/Endpoint';
-import { CreateStudentDto, UpdateStudentDto } from '../dto/students.dto';
+import {
+  CreateStudentDto,
+  FilterStudentDto,
+  UpdateStudentDto,
+} from '../dto/students.dto';
 import { StudentsService } from '../service/students.service';
 import { StudentArrayType, StudentType } from '../types/Student.types';
 
@@ -19,26 +25,26 @@ import { StudentArrayType, StudentType } from '../types/Student.types';
 export class StudentsController {
   constructor(private readonly service: StudentsService) {}
   @Get()
-  getStudents(): StudentArrayType {
-    return this.service.getStudents();
+  getStudents(@Query() params?: FilterStudentDto): StudentArrayType {
+    return this.service.getStudents(params);
   }
   @Post()
   createStudent(@Body() student: CreateStudentDto): StudentType {
     return this.service.createStudent(student);
   }
   @Get(':id')
-  getStudent(@Param('id') id: string): StudentType {
+  getStudent(@Param('id', MongoIdPipe) id: string): StudentType {
     return this.service.getStudent(id);
   }
   @Put(':id')
   updateStudent(
-    @Param('id') id: string,
+    @Param('id', MongoIdPipe) id: string,
     @Body() student: UpdateStudentDto,
   ): StudentType {
     return this.service.updateStudent(id, student);
   }
   @Delete(':id')
-  deleteStudent(@Param('id') id: string) {
+  deleteStudent(@Param('id', MongoIdPipe) id: string) {
     return this.service.deleteStudent(id);
   }
 }

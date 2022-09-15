@@ -4,11 +4,11 @@ import Client from './Client.entity';
 @Schema()
 export default class Adult extends Client {
   @Prop({ type: String })
-  direction: string;
+  address: string;
   @Prop({ type: String })
-  phone: string;
+  phoneNumber: string;
   @Prop({ type: String })
   degreeOfInstruction: string;
   @Prop({ type: String })
-  work: string;
+  job: string;
 }

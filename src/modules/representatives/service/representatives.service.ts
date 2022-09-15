@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 
 import {
   CreateRepresentativeDto,
+  FilterRepresentativeDto,
   UpdateRepresentativeDto,
 } from '../dto/representatives.dto';
 import Representative from '../entity/Representative.entity';
@@ -20,8 +21,14 @@ export class RepresentativesService {
     private representativeModel: Model<RepresentativeDocument>,
   ) {}
 
-  async getRepresentatives(): RepresentativeArrayType {
-    return await this.representativeModel.find().exec();
+  async getRepresentatives(
+    params?: FilterRepresentativeDto,
+  ): RepresentativeArrayType {
+    return await this.representativeModel
+      .find()
+      .skip(params.offset)
+      .limit(params.limit)
+      .exec();
   }
   async createRepresentative(
     representative: CreateRepresentativeDto,
@@ -36,7 +43,7 @@ export class RepresentativesService {
     representative: UpdateRepresentativeDto,
   ): RepresentativeType {
     return await this.representativeModel
-      .findByIdAndUpdate(id, representative)
+      .findByIdAndUpdate(id, { $set: representative }, { new: true })
       .exec();
   }
   async deleteRepresentative(id: string) {
