@@ -16,6 +16,6 @@ export class CreateAdultDto extends CreateClientDto {
 }
 export class UpdateAdultDto extends PartialType(CreateAdultDto) {}
 
-export class FilterAdultDto extends FilterClientDto {}
+export class FilterAdultDto extends UpdateAdultDto {}
 
 export const adultDto = [CreateAdultDto, UpdateAdultDto, FilterAdultDto];

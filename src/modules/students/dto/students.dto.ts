@@ -5,44 +5,54 @@ import {
   IsNumber,
   IsPositive,
   IsString,
+  Max,
+  Min,
 } from 'class-validator';
-import Month from '../../entity/Month.entity';
-import { CreateClientDto, FilterClientDto } from '../../dto/Client.dto';
-import Parent from 'src/modules/parents/entity/Parent.entity';
+import Month from '../../months/entity/Month.entity';
+import { CreateClientDto } from '../../dto/Client.dto';
+import { Types } from 'mongoose';
 
 export class CreateStudentDto extends CreateClientDto {
   @IsString()
-  birthday: string;
+  readonly birthday: string;
 
   @IsString()
-  birthplace: string;
+  readonly birthplace: string;
 
   @IsString()
-  municipality: string;
+  readonly municipality: string;
 
   @IsString()
-  state: string;
-
-  @IsArray()
-  parents: Parent[];
-
-  @IsString()
-  liveWith: string;
-
-  @IsArray()
-  debs: string[];
+  readonly state: string;
 
   @IsNumber()
   @IsPositive()
-  @IsNotEmpty()
-  exoneration: number;
+  readonly age: number;
 
   @IsArray()
-  months: Month[];
+  readonly parents: Types.ObjectId[];
+
+  @IsArray()
+  readonly representatives: Types.ObjectId[];
 
   @IsString()
-  allergies: string;
+  readonly liveWith: string;
+
+  @IsNumber()
+  @Min(0)
+  @Max(8)
+  @IsNotEmpty()
+  readonly exoneration: number;
+
+  @IsString()
+  readonly allergies: string;
+
+  @IsArray()
+  readonly paidMonths: Types.Array<Month>;
+
+  @IsArray()
+  readonly debts: string[];
 }
 export class UpdateStudentDto extends PartialType(CreateStudentDto) {}
 
-export class FilterStudentDto extends FilterClientDto {}
+export class FilterStudentDto extends UpdateStudentDto {}

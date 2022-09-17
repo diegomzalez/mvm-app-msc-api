@@ -6,10 +6,11 @@ export class CreateUserDto extends CreatePersonDto {
   @IsEmail()
   @IsNotEmpty()
   readonly email: string;
+
   @IsString()
   @IsNotEmpty()
   readonly password: string;
 }
 export class UpdateUserDto extends PartialType(CreateUserDto) {}
 
-export class FilterUserDto extends FilterPersonDto {}
+export class FilterUserDto extends UpdateUserDto {}

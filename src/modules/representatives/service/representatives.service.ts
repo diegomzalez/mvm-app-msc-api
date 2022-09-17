@@ -25,7 +25,9 @@ export class RepresentativesService {
     params?: FilterRepresentativeDto,
   ): RepresentativeArrayType {
     return await this.representativeModel
-      .find()
+      .find(params)
+      .populate('studentRelationship')
+      .populate('studentChildren')
       .skip(params.offset)
       .limit(params.limit)
       .exec();

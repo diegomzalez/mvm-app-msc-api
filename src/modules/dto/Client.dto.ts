@@ -7,5 +7,5 @@ export class CreateClientDto extends CreatePersonDto {
 }
 export class UpdateClientDto extends PartialType(CreateClientDto) {}
 
-export class FilterClientDto extends FilterPersonDto {}
+export class FilterClientDto extends UpdateClientDto {}
 export const clientDto = [CreateClientDto, UpdateClientDto, FilterClientDto];

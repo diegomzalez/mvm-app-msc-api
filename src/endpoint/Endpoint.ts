@@ -4,6 +4,8 @@ export default class Endpoint {
   // Current endpoint
   private static currentEndpoint = `api/${this.versions.at(-1)}/`;
   // Entities endpoints
+  static billsEndpoint = this.currentEndpoint + 'bills';
+  static monthsEndpoint = this.currentEndpoint + 'months';
   static usersEndpoint = this.currentEndpoint + 'users';
   static studentsEndpoint = this.currentEndpoint + 'students';
   static parentsEndpoint = this.currentEndpoint + 'parents';

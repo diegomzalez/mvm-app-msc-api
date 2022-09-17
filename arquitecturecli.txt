@@ -1,5 +1,15 @@
 # Entities
 
+# Bill
+nest g mo modules/bills/module/bills --flat
+nest g co modules/bills/controller/bills --flat
+nest g s modules/bills/service/bills --flat
+
+# Month
+nest g mo modules/months/module/months --flat
+nest g co modules/months/controller/months --flat
+nest g s modules/months/service/months --flat
+
 # Students
 nest g mo modules/students/module/students --flat
 nest g co modules/students/controller/students --flat

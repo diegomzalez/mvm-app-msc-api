@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 
 import {
   CreateStudentDto,
@@ -17,17 +17,25 @@ export class StudentsService {
     @InjectModel(Student.name) private studentModel: Model<StudentDocument>,
   ) {}
   async getStudents(params?: FilterStudentDto): StudentArrayType {
-    if (params) {
-      const { limit, offset } = params;
-      return await this.studentModel.find().skip(offset).limit(limit).exec();
-    }
-    return await this.studentModel.find().exec();
+    return await this.studentModel
+      .find(params)
+      .populate('parents')
+      .populate('representatives')
+      .populate('paidMonths')
+      .skip(params.offset)
+      .limit(params.limit)
+      .exec();
   }
   async createStudent(student: CreateStudentDto): StudentType {
     return await new this.studentModel(student).save();
   }
   async getStudent(id: string): StudentType {
-    return await this.studentModel.findById(id).exec();
+    return await this.studentModel
+      .findById(id)
+      .populate('parents')
+      .populate('representatives')
+      .populate('paidMonths')
+      .exec();
   }
   async updateStudent(id: string, student: UpdateStudentDto): StudentType {
     return await this.studentModel

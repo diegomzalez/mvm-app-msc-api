@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -19,6 +19,7 @@ export class ParentsService {
   public async getParents(params?: FilterParentDto): ParentArrayType {
     return this.parentModel
       .find()
+      .populate('children')
       .skip(params.offset)
       .limit(params.limit)
       .exec();
@@ -27,7 +28,7 @@ export class ParentsService {
     return await new this.parentModel(parent).save();
   }
   public async getParent(id: string): ParentType {
-    return await this.parentModel.findById(id).exec();
+    return await this.parentModel.findById(id).populate('children').exec();
   }
   public async updateParent(id: string, parent: UpdateParentDto): ParentType {
     return await this.parentModel.findByIdAndUpdate(

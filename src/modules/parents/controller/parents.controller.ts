@@ -25,26 +25,26 @@ import { ParentType, ParentArrayType } from '../types/Parent.types';
 export class ParentsController {
   constructor(private readonly service: ParentsService) {}
   @Get()
-  public async getParents(@Query() params?: FilterParentDto): ParentArrayType {
+  async getParents(@Query() params?: FilterParentDto): ParentArrayType {
     return await this.service.getParents(params);
   }
   @Post()
-  public async createParent(@Body() parent: CreateParentDto): ParentType {
+  async createParent(@Body() parent: CreateParentDto): ParentType {
     return await this.service.createParent(parent);
   }
   @Get(':id')
-  public async getParent(@Param('id', MongoIdPipe) id: string): ParentType {
+  async getParent(@Param('id', MongoIdPipe) id: string): ParentType {
     return await this.service.getParent(id);
   }
   @Put(':id')
-  public async updateParent(
+  async updateParent(
     @Param('id', MongoIdPipe) id: string,
     @Body() parent: UpdateParentDto,
   ): ParentType {
     return await this.service.updateParent(id, parent);
   }
   @Delete(':id')
-  public async deleteParent(@Param('id', MongoIdPipe) id: string) {
+  async deleteParent(@Param('id', MongoIdPipe) id: string) {
     return await this.service.deleteParent(id);
   }
 }

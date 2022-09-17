@@ -1,16 +1,17 @@
 import { Prop, Schema } from '@nestjs/mongoose';
-import mongoose from 'mongoose';
+import { Types } from 'mongoose';
+import Student from '../../../modules/students/entity/Student.entity';
 
 import Adult from '../../entity/Adult.entity';
 
 @Schema()
 export default class Representative extends Adult {
   @Prop({
-    type: [String],
+    type: Types.Array<string>,
   })
-  studentRelationship: string[];
+  studentRelationship: Types.Array<string>;
   @Prop({
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
+    type: [{ type: Types.ObjectId, ref: 'Student' }],
   })
-  studentChildren: string[];
+  studentChildren: Types.Array<Student>;
 }
