@@ -3,6 +3,7 @@ import {
   IsArray,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   Max,
@@ -12,6 +13,7 @@ import Month from '../../months/entity/Month.entity';
 import { CreateClientDto } from '../../dto/Client.dto';
 import { Types } from 'mongoose';
 import Representative from 'src/modules/representatives/entity/Representative.entity';
+import Parent from 'src/modules/parents/entity/Parent.entity';
 
 export class CreateStudentDto extends CreateClientDto {
   @IsString()
@@ -31,10 +33,10 @@ export class CreateStudentDto extends CreateClientDto {
   readonly age: number;
 
   @IsArray()
-  readonly parents: Types.ObjectId[];
+  readonly parents: Types.Array<Parent>;
 
   @IsArray()
-  readonly representatives: Types.ObjectId[];
+  readonly representatives: Types.Array<Representative>;
 
   @IsString()
   readonly liveWith: string;
@@ -56,10 +58,16 @@ export class CreateStudentDto extends CreateClientDto {
 }
 export class UpdateStudentDto extends PartialType(CreateStudentDto) {}
 
-export class AddRepresentativesDto {
-  @IsNotEmpty()
+export class DeleteParentsDto {
+  @IsOptional()
   @IsArray()
-  representativesId: Types.Array<Representative>;
+  readonly parents: Types.Array<Parent>;
+}
+
+export class DeleteRepresentativesDto {
+  @IsOptional()
+  @IsArray()
+  readonly representatives: Types.Array<Representative>;
 }
 
 export class FilterStudentDto extends UpdateStudentDto {}

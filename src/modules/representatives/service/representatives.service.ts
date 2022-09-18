@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 import {
   CreateRepresentativeDto,
+  DeleteStudentChildrenDto,
   FilterRepresentativeDto,
   UpdateRepresentativeDto,
 } from '../dto/representatives.dto';
@@ -32,23 +33,47 @@ export class RepresentativesService {
       .limit(params.limit)
       .exec();
   }
+
   async createRepresentative(
     representative: CreateRepresentativeDto,
   ): RepresentativeType {
     return await new this.representativeModel(representative).save();
   }
-  async getRepresentative(id: string): RepresentativeType {
+
+  async getRepresentative(id: Types.ObjectId): RepresentativeType {
     return await this.representativeModel.findById(id).exec();
   }
+
   async updateRepresentative(
-    id: string,
+    id: Types.ObjectId,
     representative: UpdateRepresentativeDto,
   ): RepresentativeType {
     return await this.representativeModel
-      .findByIdAndUpdate(id, { $set: representative }, { new: true })
+      .findByIdAndUpdate(id, { $addToSet: representative }, { new: true })
       .exec();
   }
-  async deleteRepresentative(id: string) {
+
+  async deleteRepresentative(id: Types.ObjectId) {
     await this.representativeModel.findByIdAndDelete(id).exec();
+  }
+
+  async deleteStudentsChildren(
+    representativeId: Types.ObjectId,
+    studentsId: DeleteStudentChildrenDto,
+  ): RepresentativeType {
+    const representative = await this.representativeModel
+      .findById(representativeId)
+      .exec();
+    const indices: number[] = [];
+    studentsId.studentChildren.forEach((student) => {
+      const index = representative.studentChildren.indexOf(student);
+      indices.push(index);
+    });
+    representative.studentChildren.pull(studentsId.studentChildren);
+    indices.forEach((value) => {
+      representative.studentRelationship.splice(value, 1);
+    });
+
+    return await representative.save();
   }
 }

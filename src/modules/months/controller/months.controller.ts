@@ -9,9 +9,12 @@ import {
   Query,
 } from '@nestjs/common';
 import { Types } from 'mongoose';
+
+import { MongoIdPipe } from '../../../common/mongo-id.pipe';
 import Endpoint from '../../../endpoint/Endpoint';
 import {
   CreateMonthDto,
+  deleteBillsDto,
   FilterMonthDto,
   UpdateMonthDto,
 } from '../dto/Month.dto';
@@ -42,11 +45,19 @@ export class MonthsController {
     @Param('id') id: Types.ObjectId,
     @Body() month: UpdateMonthDto,
   ): Promise<Month> {
-    return await this.updateMonth(id, month);
+    return await this.monthsService.updateMonth(id, month);
   }
 
   @Delete(':id')
   async deleteMonth(@Param('id') id: Types.ObjectId): Promise<Month> {
     return await this.monthsService.deleteMonth(id);
+  }
+
+  @Delete(':monthId/bills')
+  async deleteBills(
+    @Param('monthId', MongoIdPipe) monthId: Types.ObjectId,
+    @Body() billsId: deleteBillsDto,
+  ): Promise<Month> {
+    return await this.monthsService.deleteBills(monthId, billsId);
   }
 }

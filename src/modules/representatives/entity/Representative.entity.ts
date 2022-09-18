@@ -7,7 +7,7 @@ import Adult from '../../entity/Adult.entity';
 @Schema()
 export default class Representative extends Adult {
   @Prop({
-    type: Types.Array<string>,
+    type: [],
   })
   studentRelationship: Types.Array<string>;
   @Prop({

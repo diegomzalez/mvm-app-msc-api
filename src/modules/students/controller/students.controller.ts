@@ -15,7 +15,8 @@ import { MongoIdPipe } from '../../../common/mongo-id.pipe';
 
 import Endpoint from '../../../endpoint/Endpoint';
 import {
-  AddRepresentativesDto,
+  DeleteParentsDto,
+  DeleteRepresentativesDto,
   CreateStudentDto,
   FilterStudentDto,
   UpdateStudentDto,
@@ -39,31 +40,39 @@ export class StudentsController {
   }
 
   @Get(':id')
-  getStudent(@Param('id', MongoIdPipe) id: string): StudentType {
+  getStudent(@Param('id', MongoIdPipe) id: Types.ObjectId): StudentType {
     return this.service.getStudent(id);
   }
 
   @Put(':id')
   updateStudent(
-    @Param('id', MongoIdPipe) id: string,
+    @Param('id', MongoIdPipe) id: Types.ObjectId,
     @Body() student: UpdateStudentDto,
   ): StudentType {
     return this.service.updateStudent(id, student);
   }
 
   @Delete(':id')
-  deleteStudent(@Param('id', MongoIdPipe) id: string): StudentType {
+  deleteStudent(@Param('id', MongoIdPipe) id: Types.ObjectId): StudentType {
     return this.service.deleteStudent(id);
   }
 
-  @Put(':studentId/representatives')
-  async addRepresentatives(
+  @Delete(':studentId/parents')
+  async deleteParents(
     @Param('studentId', MongoIdPipe) studentId: Types.ObjectId,
-    @Body() body: AddRepresentativesDto,
+    @Body() parentsId: DeleteParentsDto,
   ): StudentType {
-    return await this.service.addRepresentatives(
+    return await this.service.deleteParents(studentId, parentsId);
+  }
+
+  @Delete(':studentId/representatives')
+  async deleteRepresentatives(
+    @Param('studentId', MongoIdPipe) studentId: Types.ObjectId,
+    @Body() representativesId: DeleteRepresentativesDto,
+  ): StudentType {
+    return await this.service.deleteRepresentatives(
       studentId,
-      body.representativesId,
+      representativesId,
     );
   }
 }

@@ -33,4 +33,10 @@ export class CreateMonthDto extends Month {
 }
 export class UpdateMonthDto extends PartialType(CreateMonthDto) {}
 
+export class deleteBillsDto {
+  @IsNotEmpty()
+  @IsArray()
+  bills: Types.Array<Bill>;
+}
+
 export class FilterMonthDto extends UpdateMonthDto {}

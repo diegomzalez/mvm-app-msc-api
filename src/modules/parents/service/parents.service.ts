@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { Types } from 'mongoose';
 
 import {
   CreateParentDto,
+  DeleteChildrenDto,
   FilterParentDto,
   UpdateParentDto,
 } from '../dto/parent.dto';
@@ -16,7 +18,8 @@ export class ParentsService {
   constructor(
     @InjectModel(Parent.name) private parentModel: Model<ParentDocument>,
   ) {}
-  public async getParents(params?: FilterParentDto): ParentArrayType {
+
+  async getParents(params?: FilterParentDto): ParentArrayType {
     return this.parentModel
       .find()
       .populate('children')
@@ -24,22 +27,35 @@ export class ParentsService {
       .limit(params.limit)
       .exec();
   }
-  public async createParent(parent: CreateParentDto): ParentType {
+
+  async createParent(parent: CreateParentDto): ParentType {
     return await new this.parentModel(parent).save();
   }
-  public async getParent(id: string): ParentType {
+
+  async getParent(id: Types.ObjectId): ParentType {
     return await this.parentModel.findById(id).populate('children').exec();
   }
-  public async updateParent(id: string, parent: UpdateParentDto): ParentType {
+
+  async updateParent(id: Types.ObjectId, parent: UpdateParentDto): ParentType {
     return await this.parentModel.findByIdAndUpdate(
       id,
       {
-        $set: parent,
+        $addToSet: parent,
       },
       { new: true },
     );
   }
-  public async deleteParent(id: string) {
+
+  async deleteParent(id: Types.ObjectId): ParentType {
     return await this.parentModel.findByIdAndDelete(id).exec();
+  }
+
+  async deleteChildren(
+    id: Types.ObjectId,
+    childrenId: DeleteChildrenDto,
+  ): ParentType {
+    const parent = await this.parentModel.findById(id).exec();
+    parent.children.pull(childrenId.children);
+    return parent.save();
   }
 }
