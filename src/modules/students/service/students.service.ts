@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { FilterQuery, Model } from 'mongoose';
+import { Types } from 'mongoose';
+import { Model } from 'mongoose';
+import Representative from 'src/modules/representatives/entity/Representative.entity';
 
 import {
   CreateStudentDto,
@@ -37,12 +39,28 @@ export class StudentsService {
       .populate('paidMonths')
       .exec();
   }
+  async addRepresentatives(
+    studentId: Types.ObjectId,
+    representativesId: Types.Array<Representative>,
+  ): StudentType {
+    return await this.studentModel
+      .findByIdAndUpdate(
+        studentId,
+        {
+          $addToSet: {
+            representatives: representativesId,
+          },
+        },
+        { new: true },
+      )
+      .exec();
+  }
   async updateStudent(id: string, student: UpdateStudentDto): StudentType {
     return await this.studentModel
       .findByIdAndUpdate(id, { $set: student }, { new: true })
       .exec();
   }
-  async deleteStudent(id: string) {
-    await this.studentModel.findByIdAndDelete(id);
+  async deleteStudent(id: string): StudentType {
+    return await this.studentModel.findByIdAndDelete(id);
   }
 }

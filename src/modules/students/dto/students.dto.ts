@@ -11,6 +11,7 @@ import {
 import Month from '../../months/entity/Month.entity';
 import { CreateClientDto } from '../../dto/Client.dto';
 import { Types } from 'mongoose';
+import Representative from 'src/modules/representatives/entity/Representative.entity';
 
 export class CreateStudentDto extends CreateClientDto {
   @IsString()
@@ -54,5 +55,11 @@ export class CreateStudentDto extends CreateClientDto {
   readonly debts: string[];
 }
 export class UpdateStudentDto extends PartialType(CreateStudentDto) {}
+
+export class AddRepresentativesDto {
+  @IsNotEmpty()
+  @IsArray()
+  representativesId: Types.Array<Representative>;
+}
 
 export class FilterStudentDto extends UpdateStudentDto {}
