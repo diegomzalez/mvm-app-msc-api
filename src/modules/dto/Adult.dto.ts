@@ -12,7 +12,7 @@ export class CreateAdultDto extends CreateClientDto {
   readonly degreeOfInstruction: string;
 
   @IsString()
-  readonly work: string;
+  readonly job: string;
 }
 export class UpdateAdultDto extends PartialType(CreateAdultDto) {}
 
