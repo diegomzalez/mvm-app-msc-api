@@ -9,8 +9,9 @@ import {
   Max,
   Min,
 } from 'class-validator';
+
 import Month from '../../months/entity/Month.entity';
-import { CreateClientDto } from '../../dto/Client.dto';
+import { CreateClientDto } from '../../../dto/Client.dto';
 import { Types } from 'mongoose';
 import Representative from 'src/modules/representatives/entity/Representative.entity';
 import Parent from 'src/modules/parents/entity/Parent.entity';

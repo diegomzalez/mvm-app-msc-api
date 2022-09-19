@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Types } from 'mongoose';
 
 import {
   CreateParentDto,
@@ -12,6 +11,7 @@ import {
 import Parent from '../entity/Parent.entity';
 import ParentDocument from '../types/ParentDocument.type';
 import { ParentType, ParentArrayType } from '../types/Parent.types';
+import { mongoId } from 'src/types/mongoId.type';
 
 @Injectable()
 export class ParentsService {
@@ -32,11 +32,11 @@ export class ParentsService {
     return await new this.parentModel(parent).save();
   }
 
-  async getParent(id: Types.ObjectId): ParentType {
+  async getParent(id: mongoId): ParentType {
     return await this.parentModel.findById(id).populate('children').exec();
   }
 
-  async updateParent(id: Types.ObjectId, parent: UpdateParentDto): ParentType {
+  async updateParent(id: mongoId, parent: UpdateParentDto): ParentType {
     return await this.parentModel.findByIdAndUpdate(
       id,
       {
@@ -46,14 +46,11 @@ export class ParentsService {
     );
   }
 
-  async deleteParent(id: Types.ObjectId): ParentType {
+  async deleteParent(id: mongoId): ParentType {
     return await this.parentModel.findByIdAndDelete(id).exec();
   }
 
-  async deleteChildren(
-    id: Types.ObjectId,
-    childrenId: DeleteChildrenDto,
-  ): ParentType {
+  async deleteChildren(id: mongoId, childrenId: DeleteChildrenDto): ParentType {
     const parent = await this.parentModel.findById(id).exec();
     parent.children.pull(childrenId.children);
     return parent.save();

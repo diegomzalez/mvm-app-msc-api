@@ -15,6 +15,7 @@ import Endpoint from '../../../endpoint/Endpoint';
 import { UsersService } from '../service/users.service';
 import { UserArrayType, UserType } from '../types/User.types';
 import { MongoIdPipe } from '../../../common/mongo-id.pipe';
+import { mongoId } from '../../../types/mongoId.type';
 
 @ApiTags('users')
 @Controller(Endpoint.usersEndpoint)
@@ -30,18 +31,18 @@ export class UsersController {
   }
 
   @Get(':id')
-  async getUser(@Param('id', MongoIdPipe) id: string): UserType {
+  async getUser(@Param('id', MongoIdPipe) id: mongoId): UserType {
     return await this.service.getUser(id);
   }
   @Put(':id')
   async updateUser(
-    @Param('id', MongoIdPipe) id: string,
+    @Param('id', MongoIdPipe) id: mongoId,
     @Body() user: UpdateUserDto,
   ): UserType {
     return await this.updateUser(id, user);
   }
   @Delete(':id')
-  async deleteUser(@Param('id', MongoIdPipe) id: string) {
+  async deleteUser(@Param('id', MongoIdPipe) id: mongoId) {
     return await this.service.deleteUser(id);
   }
 }

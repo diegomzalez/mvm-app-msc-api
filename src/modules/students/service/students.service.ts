@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Types } from 'mongoose';
 import { Model } from 'mongoose';
 
 import {
@@ -13,6 +12,7 @@ import {
 import Student from '../entity/Student.entity';
 import { StudentArrayType, StudentType } from '../types/Student.types';
 import StudentDocument from '../types/StudentDocument';
+import { mongoId } from '../../../types/mongoId.type';
 
 @Injectable()
 export class StudentsService {
@@ -35,7 +35,7 @@ export class StudentsService {
     return await new this.studentModel(student).save();
   }
 
-  async getStudent(id: Types.ObjectId): StudentType {
+  async getStudent(id: mongoId): StudentType {
     return await this.studentModel
       .findById(id)
       .populate('parents')
@@ -44,21 +44,18 @@ export class StudentsService {
       .exec();
   }
 
-  async updateStudent(
-    id: Types.ObjectId,
-    student: UpdateStudentDto,
-  ): StudentType {
+  async updateStudent(id: mongoId, student: UpdateStudentDto): StudentType {
     return await this.studentModel
       .findByIdAndUpdate(id, { $addToSet: student }, { new: true })
       .exec();
   }
 
-  async deleteStudent(id: Types.ObjectId): StudentType {
+  async deleteStudent(id: mongoId): StudentType {
     return await this.studentModel.findByIdAndDelete(id);
   }
 
   async deleteParents(
-    studentId: Types.ObjectId,
+    studentId: mongoId,
     parentsId: DeleteParentsDto,
   ): StudentType {
     const student = await this.studentModel.findById(studentId).exec();
@@ -68,7 +65,7 @@ export class StudentsService {
   }
 
   async deleteRepresentatives(
-    studentId: Types.ObjectId,
+    studentId: mongoId,
     representativesId: DeleteRepresentativesDto,
   ): StudentType {
     const student = await this.studentModel.findById(studentId).exec();

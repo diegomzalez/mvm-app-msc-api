@@ -2,7 +2,7 @@ import { Prop, Schema } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 import Student from '../../../modules/students/entity/Student.entity';
 
-import Adult from '../../entity/Adult.entity';
+import Adult from '../../../entities/Adult.entity';
 
 @Schema()
 export default class Representative extends Adult {

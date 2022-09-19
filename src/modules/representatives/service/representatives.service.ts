@@ -9,7 +9,7 @@ import {
   UpdateRepresentativeDto,
 } from '../dto/representatives.dto';
 import Representative from '../entity/Representative.entity';
-import RepresentativeDocument from '../types/RepresentativeDocument';
+import RepresentativeDocument from '../types/RepresentativeDocument.type';
 import {
   RepresentativeArrayType,
   RepresentativeType,
@@ -53,8 +53,8 @@ export class RepresentativesService {
       .exec();
   }
 
-  async deleteRepresentative(id: Types.ObjectId) {
-    await this.representativeModel.findByIdAndDelete(id).exec();
+  async deleteRepresentative(id: Types.ObjectId): RepresentativeType {
+    return await this.representativeModel.findByIdAndDelete(id).exec();
   }
 
   async deleteStudentsChildren(

@@ -6,7 +6,7 @@ import {
   IsOptional,
 } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
-import Person from '../entity/Person.entity';
+import Person from '../entities/Person.entity';
 export class CreatePersonDto extends Person {
   @IsOptional()
   @IsPositive()

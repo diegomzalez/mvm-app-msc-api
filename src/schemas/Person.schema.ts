@@ -1,4 +1,4 @@
 import { SchemaFactory } from '@nestjs/mongoose';
-import Person from '../entity/Person.entity';
+import Person from '../entities/Person.entity';
 
 export default SchemaFactory.createForClass(Person);

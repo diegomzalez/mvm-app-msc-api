@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import Adult from '../entity/Adult.entity';
+import Adult from '../entities/Adult.entity';
 
 type AdultDocument = Adult & Document;
 export default AdultDocument;

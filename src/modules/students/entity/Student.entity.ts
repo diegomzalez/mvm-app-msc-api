@@ -1,14 +1,18 @@
-import Client from '../../entity/Client.entity';
+import Client from '../../../entities/Client.entity';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
+
 import Representative from '../../../modules/representatives/entity/Representative.entity';
 import Month from '../../months/entity/Month.entity';
 import Parent from '../../../modules/parents/entity/Parent.entity';
+import { ParentMongoArray } from '../../parents/types/ParentMongoArray.type';
+import { RepresentativeMongoArray } from '../../representatives/types/RepresentativeMongoArray.type';
+import { MonthMongoArray } from '../../months/types/MonthMongoArray.type';
 
 @Schema()
 export default class Student extends Client {
-  @Prop({ type: String })
-  birthday: string;
+  @Prop({ type: Date })
+  birthday: Date;
 
   @Prop({ type: String })
   birthplace: string;
@@ -23,10 +27,10 @@ export default class Student extends Client {
   age: number;
 
   @Prop({ type: [{ type: Types.ObjectId, ref: Parent.name }] })
-  parents: Types.Array<Parent>;
+  parents: ParentMongoArray;
 
   @Prop({ type: [{ type: Types.ObjectId, ref: Representative.name }] })
-  representatives: Types.Array<Representative>;
+  representatives: RepresentativeMongoArray;
 
   @Prop({ type: String })
   liveWith: string;
@@ -38,7 +42,7 @@ export default class Student extends Client {
   exoneration: number;
 
   @Prop({ type: [{ type: Types.ObjectId, ref: Month.name }] })
-  paidMonths: Types.Array<Month>;
+  paidMonths: MonthMongoArray;
 
   @Prop({ type: [{ type: String }] })
   debts: string[];
