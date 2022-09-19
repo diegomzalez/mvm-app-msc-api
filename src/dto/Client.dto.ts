@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
-import { CreatePersonDto, FilterPersonDto } from './Person.dto';
+import { IsNumber, IsOptional } from 'class-validator';
+import { CreatePersonDto } from './Person.dto';
 export class CreateClientDto extends CreatePersonDto {
   @IsOptional()
   @IsNumber()

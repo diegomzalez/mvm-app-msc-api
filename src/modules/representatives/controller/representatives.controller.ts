@@ -10,8 +10,8 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Types } from 'mongoose';
-import { MongoIdPipe } from '../../../common/mongo-id.pipe';
 
+import { MongoIdPipe } from '../../../common/mongo-id.pipe';
 import Endpoint from '../../../endpoint/Endpoint';
 import {
   CreateRepresentativeDto,

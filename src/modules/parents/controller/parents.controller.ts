@@ -9,8 +9,6 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Types } from 'mongoose';
-import { MongoIdPipe } from '../../../common/mongo-id.pipe';
 
 import Endpoint from '../../../endpoint/Endpoint';
 import {
@@ -21,6 +19,8 @@ import {
 } from '../dto/parent.dto';
 import { ParentsService } from '../service/parents.service';
 import { ParentType, ParentArrayType } from '../types/Parent.types';
+import { MongoIdPipe } from '../../../common/mongo-id.pipe';
+import { mongoId } from '../../../types/mongoId.type';
 
 @ApiTags('parents')
 @Controller(Endpoint.parentsEndpoint)
@@ -38,26 +38,26 @@ export class ParentsController {
   }
 
   @Get(':id')
-  async getParent(@Param('id', MongoIdPipe) id: Types.ObjectId): ParentType {
+  async getParent(@Param('id', MongoIdPipe) id: mongoId): ParentType {
     return await this.service.getParent(id);
   }
 
   @Put(':id')
   async updateParent(
-    @Param('id', MongoIdPipe) id: Types.ObjectId,
+    @Param('id', MongoIdPipe) id: mongoId,
     @Body() parent: UpdateParentDto,
   ): ParentType {
     return await this.service.updateParent(id, parent);
   }
 
   @Delete(':id')
-  async deleteParent(@Param('id', MongoIdPipe) id: Types.ObjectId): ParentType {
+  async deleteParent(@Param('id', MongoIdPipe) id: mongoId): ParentType {
     return await this.service.deleteParent(id);
   }
 
   @Delete(':parentId/children')
   async deleteChildren(
-    @Param('parentId', MongoIdPipe) parentId: Types.ObjectId,
+    @Param('parentId', MongoIdPipe) parentId: mongoId,
     @Body() childrenId: DeleteChildrenDto,
   ): ParentType {
     return await this.service.deleteChildren(parentId, childrenId);

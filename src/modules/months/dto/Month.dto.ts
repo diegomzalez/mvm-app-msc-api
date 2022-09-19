@@ -5,11 +5,13 @@ import {
   IsBoolean,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPositive,
   IsString,
   Min,
 } from 'class-validator';
 import { Types } from 'mongoose';
+import { BillMongoArray } from 'src/modules/bills/types/BillMongoArray.type';
 import Bill from '../../bills/entity/Bill.entity';
 import Month from '../entity/Month.entity';
 
@@ -18,6 +20,7 @@ export class CreateMonthDto extends Month {
   @IsString()
   name: string;
 
+  @IsOptional()
   @IsArray()
   bills: Types.Array<Bill>;
 
@@ -36,7 +39,7 @@ export class UpdateMonthDto extends PartialType(CreateMonthDto) {}
 export class deleteBillsDto {
   @IsNotEmpty()
   @IsArray()
-  bills: Types.Array<Bill>;
+  bills: BillMongoArray;
 }
 
 export class FilterMonthDto extends UpdateMonthDto {}

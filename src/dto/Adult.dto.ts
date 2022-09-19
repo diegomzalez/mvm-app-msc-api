@@ -1,6 +1,8 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { IsOptional, IsString } from 'class-validator';
-import { CreateClientDto, FilterClientDto } from './Client.dto';
+
+import { CreateClientDto } from './Client.dto';
+
 export class CreateAdultDto extends CreateClientDto {
   @IsOptional()
   @IsString()
@@ -8,7 +10,7 @@ export class CreateAdultDto extends CreateClientDto {
 
   @IsOptional()
   @IsString()
-  readonly phone: string;
+  readonly phoneNumber: string;
 
   @IsOptional()
   @IsString()

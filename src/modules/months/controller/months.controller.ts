@@ -8,8 +8,8 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { Types } from 'mongoose';
 
+import { mongoId } from '../../../types/mongoId.type';
 import { MongoIdPipe } from '../../../common/mongo-id.pipe';
 import Endpoint from '../../../endpoint/Endpoint';
 import {
@@ -18,46 +18,46 @@ import {
   FilterMonthDto,
   UpdateMonthDto,
 } from '../dto/Month.dto';
-import Month from '../entity/Month.entity';
 import { MonthsService } from '../service/months.service';
+import { MonthType, MonthTypeArray } from '../types/Month.type';
 
 @Controller(Endpoint.monthsEndpoint)
 export class MonthsController {
   constructor(private readonly monthsService: MonthsService) {}
 
   @Get()
-  async getMonths(@Query() params?: FilterMonthDto): Promise<Month[]> {
+  async getMonths(@Query() params?: FilterMonthDto): MonthTypeArray {
     return await this.monthsService.getMonths(params);
   }
 
   @Post()
-  async postMonth(@Body() month: CreateMonthDto): Promise<Month> {
+  async postMonth(@Body() month: CreateMonthDto): MonthType {
     return await this.monthsService.postMonth(month);
   }
 
   @Get(':id')
-  async getMonth(@Param('id') id: Types.ObjectId): Promise<Month> {
+  async getMonth(@Param('id') id: mongoId): MonthType {
     return await this.monthsService.getMonth(id);
   }
 
   @Put(':id')
   async updateMonth(
-    @Param('id') id: Types.ObjectId,
+    @Param('id') id: mongoId,
     @Body() month: UpdateMonthDto,
-  ): Promise<Month> {
+  ): MonthType {
     return await this.monthsService.updateMonth(id, month);
   }
 
   @Delete(':id')
-  async deleteMonth(@Param('id') id: Types.ObjectId): Promise<Month> {
+  async deleteMonth(@Param('id') id: mongoId): MonthType {
     return await this.monthsService.deleteMonth(id);
   }
 
   @Delete(':monthId/bills')
   async deleteBills(
-    @Param('monthId', MongoIdPipe) monthId: Types.ObjectId,
+    @Param('monthId', MongoIdPipe) monthId: mongoId,
     @Body() billsId: deleteBillsDto,
-  ): Promise<Month> {
+  ): MonthType {
     return await this.monthsService.deleteBills(monthId, billsId);
   }
 }

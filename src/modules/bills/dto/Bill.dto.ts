@@ -7,6 +7,7 @@ import {
   IsPositive,
   Min,
 } from 'class-validator';
+
 import Bill from '../entity/Bill.entity';
 
 export class CreateBillDto extends Bill {

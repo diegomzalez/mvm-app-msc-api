@@ -1,4 +1,5 @@
 import { Prop, Schema } from '@nestjs/mongoose';
+
 import Person from './Person.entity';
 
 @Schema()

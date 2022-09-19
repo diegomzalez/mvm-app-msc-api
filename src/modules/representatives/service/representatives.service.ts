@@ -64,11 +64,13 @@ export class RepresentativesService {
     const representative = await this.representativeModel
       .findById(representativeId)
       .exec();
+
     const indices: number[] = [];
     studentsId.studentChildren.forEach((student) => {
       const index = representative.studentChildren.indexOf(student);
       indices.push(index);
     });
+
     representative.studentChildren.pull(studentsId.studentChildren);
     indices.forEach((value) => {
       representative.studentRelationship.splice(value, 1);
