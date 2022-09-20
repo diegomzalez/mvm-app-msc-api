@@ -9,8 +9,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Types } from 'mongoose';
 
+import { mongoId } from '../../../types/mongoId.type';
 import { MongoIdPipe } from '../../../common/mongo-id.pipe';
 import Endpoint from '../../../endpoint/Endpoint';
 import {
@@ -46,27 +46,27 @@ export class RepresentativesController {
 
   @Get(':id')
   async getRepresentative(
-    @Param('id', MongoIdPipe) id: Types.ObjectId,
+    @Param('id', MongoIdPipe) id: mongoId,
   ): RepresentativeType {
     return await this.service.getRepresentative(id);
   }
 
   @Put(':id')
   async updateRepresentative(
-    @Param('id', MongoIdPipe) id: Types.ObjectId,
+    @Param('id', MongoIdPipe) id: mongoId,
     @Body() representative: UpdateRepresentativeDto,
   ): RepresentativeType {
     return await this.service.updateRepresentative(id, representative);
   }
 
   @Delete(':id')
-  async deleteRepresentative(@Param('id', MongoIdPipe) id: Types.ObjectId) {
+  async deleteRepresentative(@Param('id', MongoIdPipe) id: mongoId) {
     return await this.service.deleteRepresentative(id);
   }
 
   @Delete(':representativeId/studentChildren')
   async deleteStudentChildren(
-    @Param('representativeId', MongoIdPipe) representativeId: Types.ObjectId,
+    @Param('representativeId', MongoIdPipe) representativeId: mongoId,
     @Body() studentChildrenId: DeleteStudentChildrenDto,
   ): RepresentativeType {
     return await this.service.deleteStudentsChildren(

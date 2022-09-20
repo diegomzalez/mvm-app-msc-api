@@ -9,8 +9,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Types } from 'mongoose';
-import Representative from 'src/modules/representatives/entity/Representative.entity';
+
+import { mongoId } from '../../../types/mongoId.type';
 import { MongoIdPipe } from '../../../common/mongo-id.pipe';
 
 import Endpoint from '../../../endpoint/Endpoint';
@@ -40,26 +40,26 @@ export class StudentsController {
   }
 
   @Get(':id')
-  getStudent(@Param('id', MongoIdPipe) id: Types.ObjectId): StudentType {
+  getStudent(@Param('id', MongoIdPipe) id: mongoId): StudentType {
     return this.service.getStudent(id);
   }
 
   @Put(':id')
   updateStudent(
-    @Param('id', MongoIdPipe) id: Types.ObjectId,
+    @Param('id', MongoIdPipe) id: mongoId,
     @Body() student: UpdateStudentDto,
   ): StudentType {
     return this.service.updateStudent(id, student);
   }
 
   @Delete(':id')
-  deleteStudent(@Param('id', MongoIdPipe) id: Types.ObjectId): StudentType {
+  deleteStudent(@Param('id', MongoIdPipe) id: mongoId): StudentType {
     return this.service.deleteStudent(id);
   }
 
   @Delete(':studentId/parents')
   async deleteParents(
-    @Param('studentId', MongoIdPipe) studentId: Types.ObjectId,
+    @Param('studentId', MongoIdPipe) studentId: mongoId,
     @Body() parentsId: DeleteParentsDto,
   ): StudentType {
     return await this.service.deleteParents(studentId, parentsId);
@@ -67,7 +67,7 @@ export class StudentsController {
 
   @Delete(':studentId/representatives')
   async deleteRepresentatives(
-    @Param('studentId', MongoIdPipe) studentId: Types.ObjectId,
+    @Param('studentId', MongoIdPipe) studentId: mongoId,
     @Body() representativesId: DeleteRepresentativesDto,
   ): StudentType {
     return await this.service.deleteRepresentatives(

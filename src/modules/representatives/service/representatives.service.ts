@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 
+import { mongoId } from '../../../types/mongoId.type';
 import {
   CreateRepresentativeDto,
   DeleteStudentChildrenDto,
@@ -40,12 +41,12 @@ export class RepresentativesService {
     return await new this.representativeModel(representative).save();
   }
 
-  async getRepresentative(id: Types.ObjectId): RepresentativeType {
+  async getRepresentative(id: mongoId): RepresentativeType {
     return await this.representativeModel.findById(id).exec();
   }
 
   async updateRepresentative(
-    id: Types.ObjectId,
+    id: mongoId,
     representative: UpdateRepresentativeDto,
   ): RepresentativeType {
     return await this.representativeModel
@@ -53,12 +54,12 @@ export class RepresentativesService {
       .exec();
   }
 
-  async deleteRepresentative(id: Types.ObjectId): RepresentativeType {
+  async deleteRepresentative(id: mongoId): RepresentativeType {
     return await this.representativeModel.findByIdAndDelete(id).exec();
   }
 
   async deleteStudentsChildren(
-    representativeId: Types.ObjectId,
+    representativeId: mongoId,
     studentsId: DeleteStudentChildrenDto,
   ): RepresentativeType {
     const representative = await this.representativeModel

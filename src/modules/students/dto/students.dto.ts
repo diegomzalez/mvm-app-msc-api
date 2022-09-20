@@ -10,11 +10,12 @@ import {
   Min,
 } from 'class-validator';
 
-import Month from '../../months/entity/Month.entity';
 import { CreateClientDto } from '../../../dto/Client.dto';
 import { Types } from 'mongoose';
 import Representative from 'src/modules/representatives/entity/Representative.entity';
-import Parent from 'src/modules/parents/entity/Parent.entity';
+import { ParentMongoArray } from '../../parents/types/ParentMongoArray.type';
+import { RepresentativeMongoArray } from '../../representatives/types/RepresentativeMongoArray.type';
+import { MonthMongoArray } from '../../months/types/MonthMongoArray.type';
 
 export class CreateStudentDto extends CreateClientDto {
   @IsString()
@@ -34,10 +35,10 @@ export class CreateStudentDto extends CreateClientDto {
   readonly age: number;
 
   @IsArray()
-  readonly parents: Types.Array<Parent>;
+  readonly parents: ParentMongoArray;
 
   @IsArray()
-  readonly representatives: Types.Array<Representative>;
+  readonly representatives: RepresentativeMongoArray;
 
   @IsString()
   readonly liveWith: string;
@@ -52,7 +53,7 @@ export class CreateStudentDto extends CreateClientDto {
   readonly allergies: string;
 
   @IsArray()
-  readonly paidMonths: Types.Array<Month>;
+  readonly paidMonths: MonthMongoArray;
 
   @IsArray()
   readonly debts: string[];
@@ -62,13 +63,13 @@ export class UpdateStudentDto extends PartialType(CreateStudentDto) {}
 export class DeleteParentsDto {
   @IsOptional()
   @IsArray()
-  readonly parents: Types.Array<Parent>;
+  readonly parents: ParentMongoArray;
 }
 
 export class DeleteRepresentativesDto {
   @IsOptional()
   @IsArray()
-  readonly representatives: Types.Array<Representative>;
+  readonly representatives: RepresentativeMongoArray;
 }
 
 export class FilterStudentDto extends UpdateStudentDto {}
