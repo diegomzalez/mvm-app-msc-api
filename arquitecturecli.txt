@@ -38,3 +38,6 @@ nest g mo database/modules/mongodb/module/mongodb --flat
 nest g co database/modules/mongodb/controller/mongodb --flat
 nest g s database/modules/mongodb/service/mongodb --flat
 
+# Authentication
+
+nest g mo modules/auth/module/auth --flat

@@ -10,7 +10,7 @@ export class CreateUserDto extends CreatePersonDto {
 
   @IsNotEmpty()
   @IsString()
-  readonly password: string;
+  password: string;
 }
 export class UpdateUserDto extends PartialType(CreateUserDto) {}
 

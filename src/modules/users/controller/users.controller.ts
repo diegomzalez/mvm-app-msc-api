@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -16,8 +17,10 @@ import { UsersService } from '../service/users.service';
 import { UserArrayType, UserType } from '../types/User.types';
 import { MongoIdPipe } from '../../../common/mongo-id.pipe';
 import { mongoId } from '../../../types/mongoId.type';
+import { FrontendKeyGuard } from '../../../auth/guards/frontend-key.guard';
 
 @ApiTags('users')
+@UseGuards(FrontendKeyGuard)
 @Controller(Endpoint.usersEndpoint)
 export class UsersController {
   constructor(private readonly service: UsersService) {}
@@ -39,7 +42,7 @@ export class UsersController {
     @Param('id', MongoIdPipe) id: mongoId,
     @Body() user: UpdateUserDto,
   ): UserType {
-    return await this.updateUser(id, user);
+    return await this.service.updateUser(id, user);
   }
   @Delete(':id')
   async deleteUser(@Param('id', MongoIdPipe) id: mongoId) {

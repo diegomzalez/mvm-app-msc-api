@@ -3,6 +3,8 @@ export default class Endpoint {
   private static versions = ['v1', 'v2'];
   // Current endpoint
   private static currentEndpoint = `api/${this.versions.at(-1)}/`;
+  // Authentication
+  static authEndpoint = this.currentEndpoint + 'auth';
   // Entities endpoints
   static billsEndpoint = this.currentEndpoint + 'bills';
   static monthsEndpoint = this.currentEndpoint + 'months';
