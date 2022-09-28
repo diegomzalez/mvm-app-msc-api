@@ -1,32 +1,12 @@
 import { PartialType } from '@nestjs/swagger';
-import {
-  IsDate,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsPositive,
-  Min,
-} from 'class-validator';
+import { IsDate, IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
+import Currency from '../../currency/entity/Currency.entity';
 
 import Bill from '../entity/Bill.entity';
 
 export class CreateBillDto extends Bill {
-  @IsOptional()
-  @IsNumber()
-  @IsPositive()
-  @Min(0)
-  limit: number;
-
-  @IsOptional()
-  @IsNumber()
-  @IsPositive()
-  @Min(0)
-  offset: number;
-
   @IsNotEmpty()
-  @IsNumber()
-  @IsPositive()
-  rate: number;
+  currency: Currency;
 
   @IsNotEmpty()
   @IsDate()

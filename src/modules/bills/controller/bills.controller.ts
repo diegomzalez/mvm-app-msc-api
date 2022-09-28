@@ -14,7 +14,9 @@ import { CreateBillDto, FilterBillDto, UpdateBillDto } from '../dto/Bill.dto';
 import { BillsService } from '../service/bills.service';
 import { BillType, BillTypeArray } from '../types/Bill.types';
 import { mongoId } from '../../../types/mongoId.type';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('bills')
 @Controller(Endpoint.billsEndpoint)
 export class BillsController {
   constructor(private billsService: BillsService) {}

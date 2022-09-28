@@ -1,27 +1,9 @@
-import {
-  IsString,
-  IsNotEmpty,
-  IsPositive,
-  Min,
-  IsOptional,
-} from 'class-validator';
+import { IsString, IsNotEmpty } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 
-import Person from '../entities/Person.entity';
+import { CreateStuffDto } from './Stuff.dto';
 
-export class CreatePersonDto extends Person {
-  @IsOptional()
-  @IsPositive()
-  limit: number;
-
-  @IsOptional()
-  @Min(0)
-  offset: number;
-
-  @IsString()
-  @IsNotEmpty()
-  readonly name: string;
-
+export class CreatePersonDto extends CreateStuffDto {
   @IsString()
   @IsNotEmpty()
   readonly middleName: string;

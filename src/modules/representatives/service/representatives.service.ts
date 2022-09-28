@@ -50,7 +50,14 @@ export class RepresentativesService {
     representative: UpdateRepresentativeDto,
   ): RepresentativeType {
     return await this.representativeModel
-      .findByIdAndUpdate(id, { $addToSet: representative }, { new: true })
+      .findByIdAndUpdate(
+        id,
+        {
+          $set: representative.studentRelationship,
+          $addToSet: representative,
+        },
+        { new: true },
+      )
       .exec();
   }
 

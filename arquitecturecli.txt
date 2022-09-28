@@ -41,3 +41,13 @@ nest g s database/modules/mongodb/service/mongodb --flat
 # Authentication
 
 nest g mo modules/auth/module/auth --flat
+
+# Currency
+nest g mo modules/currency/module/currency --flat
+nest g co modules/currency/controller/currency --flat
+nest g s modules/currency/service/currency --flat
+
+# Rate
+nest g mo modules/rate/module/rate --flat
+nest g co modules/rate/controller/rate --flat
+nest g s modules/rate/service/rate --flat

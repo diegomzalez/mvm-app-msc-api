@@ -12,6 +12,8 @@ import { ParentsModule } from './modules/parents/module/parents.module';
 import Endpoint from './endpoint/Endpoint';
 import { MongooseConfigModule } from './database/modules/mongodb/module/mongooseConfig.module';
 import { AuthModule } from './auth/module/auth.module';
+import { RateModule } from './modules/rate/module/rate.module';
+import { CurrencyModule } from './modules/currency/module/currency.module';
 import config from '../config/config';
 import mainEntities from './entities/main.entities';
 import mainDto from './dto/main.dto';
@@ -24,13 +26,15 @@ import mainDto from './dto/main.dto';
       isGlobal: true,
       cache: true,
     }),
+    AuthModule,
+    RateModule,
+    CurrencyModule,
+    BillsModule,
+    MonthsModule,
     StudentsModule,
     UsersModule,
     RepresentativesModule,
     ParentsModule,
-    MonthsModule,
-    BillsModule,
-    AuthModule,
   ],
   controllers: [AppController],
   providers: [Endpoint, AppService, ...mainEntities, ...mainDto],

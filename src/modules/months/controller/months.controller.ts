@@ -20,7 +20,9 @@ import {
 } from '../dto/Month.dto';
 import { MonthsService } from '../service/months.service';
 import { MonthType, MonthTypeArray } from '../types/Month.type';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('months')
 @Controller(Endpoint.monthsEndpoint)
 export class MonthsController {
   constructor(private readonly monthsService: MonthsService) {}

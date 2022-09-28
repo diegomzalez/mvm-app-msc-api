@@ -6,6 +6,8 @@ export default class Endpoint {
   // Authentication
   static authEndpoint = this.currentEndpoint + 'auth';
   // Entities endpoints
+  static ratesEndpoint = this.currentEndpoint + 'rates';
+  static currenciesEndpoint = this.currentEndpoint + 'currencies';
   static billsEndpoint = this.currentEndpoint + 'bills';
   static monthsEndpoint = this.currentEndpoint + 'months';
   static usersEndpoint = this.currentEndpoint + 'users';
