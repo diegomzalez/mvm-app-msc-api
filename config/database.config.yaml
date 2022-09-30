@@ -1,5 +1,6 @@
 database:
   mongo:
+    uri: 'mongodb+srv://mvm-msc:mvm-msc@mvm-msc.xuep9cd.mongodb.net/?retryWrites=true&w=majority'
     conn: 'mongodb'
     user: 'root'
     pass: 'root'

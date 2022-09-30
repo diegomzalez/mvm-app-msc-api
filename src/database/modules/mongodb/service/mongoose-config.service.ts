@@ -31,10 +31,11 @@ export class MongooseConfigService implements MongooseOptionsFactory {
       },
     );
     return {
-      uri: `${mongoConfig.conn}://${mongoConfig.host}:${mongoConfig.port}`,
-      user: mongoConfig.user,
-      pass: mongoConfig.pass,
-      dbName: mongoConfig.dbName,
+      uri: mongoConfig.uri,
+      // uri: `${mongoConfig.conn}://${mongoConfig.host}:${mongoConfig.port}`,
+      // user: mongoConfig.user,
+      // pass: mongoConfig.pass,
+      // dbName: mongoConfig.dbName,
     };
   }
 }
