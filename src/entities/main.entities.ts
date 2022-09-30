@@ -1,7 +1,7 @@
-import Stuff from './Stuff.entity';
-import Person from './Person.entity';
-import Client from './Client.entity';
-import Adult from './Adult.entity';
-import Month from '../modules/months/entity/Month.entity';
+import Stuff from './stuff.entity';
+import Person from './person.entity';
+import Client from './client.entity';
+import Adult from './adult.entity';
+import Month from '../modules/months/entity/month.entity';
 
 export default [Stuff, Person, Client, Month, Adult];

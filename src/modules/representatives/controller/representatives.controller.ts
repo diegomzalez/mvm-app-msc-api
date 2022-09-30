@@ -10,20 +10,19 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { mongoId } from '../../../types/mongoId.type';
+import { mongoId } from '../../../types/mongo-id.type';
 import { MongoIdPipe } from '../../../common/mongo-id.pipe';
-import Endpoint from '../../../endpoint/Endpoint';
+import Endpoint from '../../../endpoint/endpoint';
 import {
+  AddStudentChildrenDto,
   CreateRepresentativeDto,
   DeleteStudentChildrenDto,
   FilterRepresentativeDto,
   UpdateRepresentativeDto,
 } from '../dto/representatives.dto';
 import { RepresentativesService } from '../service/representatives.service';
-import {
-  RepresentativeArrayType,
-  RepresentativeType,
-} from '../types/Represesntative.types';
+import { RepresentativeType } from '../types/representative.types';
+import { RepresentativeArrayType } from '../types/representative-array.type';
 
 @ApiTags('representatives')
 @Controller(Endpoint.representativesEndpoint)
@@ -39,29 +38,41 @@ export class RepresentativesController {
 
   @Post()
   async createRepresentative(
-    @Body() representative: CreateRepresentativeDto,
+    @Body() representativeData: CreateRepresentativeDto,
   ): RepresentativeType {
-    return await this.service.createRepresentative(representative);
+    return await this.service.createRepresentative(representativeData);
   }
 
-  @Get(':id')
+  @Get(':representativeId')
   async getRepresentative(
-    @Param('id', MongoIdPipe) id: mongoId,
+    @Param('representativeId', MongoIdPipe) representativeId: mongoId,
   ): RepresentativeType {
-    return await this.service.getRepresentative(id);
+    return await this.service.getRepresentative(representativeId);
   }
 
-  @Put(':id')
+  @Put(':representativeId')
   async updateRepresentative(
-    @Param('id', MongoIdPipe) id: mongoId,
-    @Body() representative: UpdateRepresentativeDto,
+    @Param('representativeId', MongoIdPipe) representativeId: mongoId,
+    @Body() representativeData: UpdateRepresentativeDto,
   ): RepresentativeType {
-    return await this.service.updateRepresentative(id, representative);
+    return await this.service.updateRepresentative(
+      representativeId,
+      representativeData,
+    );
   }
 
-  @Delete(':id')
-  async deleteRepresentative(@Param('id', MongoIdPipe) id: mongoId) {
-    return await this.service.deleteRepresentative(id);
+  @Put(':representativeId/studentChildren')
+  async addStudentChildren(
+    @Param('representativeId', MongoIdPipe) representativeId: mongoId,
+    @Body() studentId: AddStudentChildrenDto,
+  ): RepresentativeType {
+    return await this.service.addStudentChildren(representativeId, studentId);
+  }
+  @Delete(':representativeId')
+  async deleteRepresentative(
+    @Param('representativeId', MongoIdPipe) representativeId: mongoId,
+  ) {
+    return await this.service.deleteRepresentative(representativeId);
   }
 
   @Delete(':representativeId/studentChildren')

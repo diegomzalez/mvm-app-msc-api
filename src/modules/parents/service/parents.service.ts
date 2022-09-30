@@ -3,15 +3,17 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
 import {
+  AddChildrenDto,
   CreateParentDto,
   DeleteChildrenDto,
   FilterParentDto,
   UpdateParentDto,
 } from '../dto/parent.dto';
-import Parent from '../entity/Parent.entity';
-import ParentDocument from '../types/ParentDocument.type';
-import { ParentType, ParentArrayType } from '../types/Parent.types';
-import { mongoId } from 'src/types/mongoId.type';
+import Parent from '../entity/parent.entity';
+import { ParentDocument } from '../document/parent-document.type';
+import { ParentType } from '../types/parent.types';
+import { mongoId } from 'src/types/mongo-id.type';
+import { ParentArrayType } from '../types/parent-array.type';
 
 @Injectable()
 export class ParentsService {
@@ -22,7 +24,6 @@ export class ParentsService {
   async getParents(params?: FilterParentDto): ParentArrayType {
     return this.parentModel
       .find()
-      .populate('children')
       .skip(params.offset)
       .limit(params.limit)
       .exec();
@@ -32,27 +33,51 @@ export class ParentsService {
     return await new this.parentModel(parent).save();
   }
 
-  async getParent(id: mongoId): ParentType {
-    return await this.parentModel.findById(id).populate('children').exec();
+  async getParent(parentId: mongoId): ParentType {
+    return await this.parentModel
+      .findById(parentId)
+      .populate('children')
+      .exec();
   }
 
-  async updateParent(id: mongoId, parent: UpdateParentDto): ParentType {
+  async updateParent(parentId: mongoId, parent: UpdateParentDto): ParentType {
     return await this.parentModel.findByIdAndUpdate(
-      id,
+      parentId,
       {
-        $addToSet: parent,
+        $set: parent,
       },
       { new: true },
     );
   }
 
-  async deleteParent(id: mongoId): ParentType {
-    return await this.parentModel.findByIdAndDelete(id).exec();
+  async addChildren(parentId: mongoId, studentId: AddChildrenDto): ParentType {
+    return await this.parentModel
+      .findByIdAndUpdate(
+        parentId,
+        {
+          $addToSet: studentId,
+        },
+        { new: true },
+      )
+      .exec();
   }
 
-  async deleteChildren(id: mongoId, childrenId: DeleteChildrenDto): ParentType {
-    const parent = await this.parentModel.findById(id).exec();
-    parent.children.pull(childrenId.children);
-    return parent.save();
+  async deleteParent(parentId: mongoId): ParentType {
+    return await this.parentModel.findByIdAndDelete(parentId).exec();
+  }
+
+  async deleteChildren(
+    parentId: mongoId,
+    studentId: DeleteChildrenDto,
+  ): ParentType {
+    return await this.parentModel
+      .findByIdAndUpdate(
+        parentId,
+        {
+          $pull: { children: { $in: studentId.children } },
+        },
+        { new: true },
+      )
+      .exec();
   }
 }

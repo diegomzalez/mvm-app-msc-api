@@ -1,20 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 
-import { mongoId } from '../../../types/mongoId.type';
+import { mongoId } from '../../../types/mongo-id.type';
 import {
+  AddStudentChildrenDto,
   CreateRepresentativeDto,
   DeleteStudentChildrenDto,
   FilterRepresentativeDto,
   UpdateRepresentativeDto,
 } from '../dto/representatives.dto';
-import Representative from '../entity/Representative.entity';
-import RepresentativeDocument from '../types/RepresentativeDocument.type';
-import {
-  RepresentativeArrayType,
-  RepresentativeType,
-} from '../types/Represesntative.types';
+import Representative from '../entity/representative.entity';
+import { RepresentativeDocument } from '../document/representative.document';
+import { RepresentativeType } from '../types/representative.types';
+import { RepresentativeArrayType } from '../types/representative-array.type';
 
 @Injectable()
 export class RepresentativesService {
@@ -28,7 +27,6 @@ export class RepresentativesService {
   ): RepresentativeArrayType {
     return await this.representativeModel
       .find(params)
-      .populate('studentRelationship')
       .populate('studentChildren')
       .skip(params.offset)
       .limit(params.limit)
@@ -53,8 +51,22 @@ export class RepresentativesService {
       .findByIdAndUpdate(
         id,
         {
-          $set: representative.studentRelationship,
-          $addToSet: representative,
+          $set: representative,
+        },
+        { new: true },
+      )
+      .exec();
+  }
+
+  async addStudentChildren(
+    representativeId: mongoId,
+    studentId: AddStudentChildrenDto,
+  ): RepresentativeType {
+    return await this.representativeModel
+      .findOneAndUpdate(
+        representativeId,
+        {
+          $addToSet: studentId,
         },
         { new: true },
       )
@@ -67,23 +79,16 @@ export class RepresentativesService {
 
   async deleteStudentsChildren(
     representativeId: mongoId,
-    studentsId: DeleteStudentChildrenDto,
+    studentId: DeleteStudentChildrenDto,
   ): RepresentativeType {
-    const representative = await this.representativeModel
-      .findById(representativeId)
+    return await this.representativeModel
+      .findByIdAndUpdate(
+        representativeId,
+        {
+          $pull: { studentChildren: { $in: studentId.studentChildren } },
+        },
+        { new: true },
+      )
       .exec();
-
-    const indices: number[] = [];
-    studentsId.studentChildren.forEach((student) => {
-      const index = representative.studentChildren.indexOf(student);
-      indices.push(index);
-    });
-
-    representative.studentChildren.pull(studentsId.studentChildren);
-    indices.forEach((value) => {
-      representative.studentRelationship.splice(value, 1);
-    });
-
-    return await representative.save();
   }
 }

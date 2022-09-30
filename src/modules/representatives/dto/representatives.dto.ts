@@ -1,28 +1,24 @@
 import { PartialType } from '@nestjs/swagger';
-import { IsArray, IsOptional } from 'class-validator';
-import { Types } from 'mongoose';
+import { IsArray, IsNotEmpty, IsOptional } from 'class-validator';
 
-import { StudentMongoArray } from '../../students/types/StudentMongoArray.type';
-import { CreateAdultDto } from '../../../dto/Adult.dto';
+import { CreateAdultDto } from '../../../dto/adult.dto';
+import { mongoId } from '../../../types/mongo-id.type';
 
 export class CreateRepresentativeDto extends CreateAdultDto {
+  @IsOptional()
   @IsArray()
-  readonly studentRelationship: Types.Array<string>;
-  @IsArray()
-  readonly studentChildren: StudentMongoArray;
+  readonly studentChildren: mongoId[];
 }
 export class UpdateRepresentativeDto extends PartialType(
   CreateRepresentativeDto,
 ) {}
 
-export class DeleteStudentChildrenDto {
-  @IsOptional()
+export class AddStudentChildrenDto {
+  @IsNotEmpty()
   @IsArray()
-  readonly studentRelationship: Types.Array<string>;
-
-  @IsOptional()
-  @IsArray()
-  readonly studentChildren: StudentMongoArray;
+  readonly studentChildren: mongoId[];
 }
+
+export class DeleteStudentChildrenDto extends AddStudentChildrenDto {}
 
 export class FilterRepresentativeDto extends UpdateRepresentativeDto {}

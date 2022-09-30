@@ -12,12 +12,13 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 
 import { CreateUserDto, FilterUserDto, UpdateUserDto } from '../dto/user.dto';
-import Endpoint from '../../../endpoint/Endpoint';
+import Endpoint from '../../../endpoint/endpoint';
 import { UsersService } from '../service/users.service';
-import { UserArrayType, UserType } from '../types/User.types';
+import { UserType } from '../types/user.type';
 import { MongoIdPipe } from '../../../common/mongo-id.pipe';
-import { mongoId } from '../../../types/mongoId.type';
+import { mongoId } from '../../../types/mongo-id.type';
 import { FrontendKeyGuard } from '../../../auth/guards/frontend-key.guard';
+import { UserArrayType } from '../types/user-array.type';
 
 @ApiTags('users')
 @UseGuards(FrontendKeyGuard)
@@ -29,23 +30,23 @@ export class UsersController {
     return await this.service.getUsers(params);
   }
   @Post()
-  async createUser(@Body() user: CreateUserDto): UserType {
-    return await this.service.createUser(user);
+  async createUser(@Body() userData: CreateUserDto): UserType {
+    return await this.service.createUser(userData);
   }
 
-  @Get(':id')
-  async getUser(@Param('id', MongoIdPipe) id: mongoId): UserType {
-    return await this.service.getUser(id);
+  @Get(':userId')
+  async getUser(@Param('userId', MongoIdPipe) userId: mongoId): UserType {
+    return await this.service.getUser(userId);
   }
-  @Put(':id')
+  @Put(':userId')
   async updateUser(
-    @Param('id', MongoIdPipe) id: mongoId,
-    @Body() user: UpdateUserDto,
+    @Param('userId', MongoIdPipe) userId: mongoId,
+    @Body() userData: UpdateUserDto,
   ): UserType {
-    return await this.service.updateUser(id, user);
+    return await this.service.updateUser(userId, userData);
   }
-  @Delete(':id')
-  async deleteUser(@Param('id', MongoIdPipe) id: mongoId) {
-    return await this.service.deleteUser(id);
+  @Delete(':userId')
+  async deleteUser(@Param('userId', MongoIdPipe) userId: mongoId) {
+    return await this.service.deleteUser(userId);
   }
 }

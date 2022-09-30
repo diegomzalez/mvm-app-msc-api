@@ -2,11 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import BillDocument from '../document/BillDocument';
-import { CreateBillDto, FilterBillDto, UpdateBillDto } from '../dto/Bill.dto';
-import Bill from '../entity/Bill.entity';
-import { BillType, BillTypeArray } from '../types/Bill.types';
-import { mongoId } from '../../../types/mongoId.type';
+import BillDocument from '../document/bill.document';
+import { CreateBillDto, FilterBillDto, UpdateBillDto } from '../dto/bill.dto';
+import Bill from '../entity/bill.entity';
+import { BillType } from '../types/bill.type';
+import { mongoId } from '../../../types/mongo-id.type';
+import { BillTypeArray } from '../types/bill-array.type';
 
 @Injectable()
 export class BillsService {
@@ -16,21 +17,21 @@ export class BillsService {
     return await this.billModel.find(params).exec();
   }
 
-  async postBill(bill: CreateBillDto): BillType {
-    return await new this.billModel(bill).save();
+  async postBill(billData: CreateBillDto): BillType {
+    return await new this.billModel(billData).save();
   }
 
-  async getBill(id: mongoId): BillType {
-    return await this.billModel.findById(id).exec();
+  async getBill(billId: mongoId): BillType {
+    return await this.billModel.findById(billId).populate('currency').exec();
   }
 
-  async updateBill(id: mongoId, bill: UpdateBillDto): BillType {
+  async updateBill(billId: mongoId, billData: UpdateBillDto): BillType {
     return await this.billModel
-      .findByIdAndUpdate(id, { $addToSet: bill }, { new: true })
+      .findByIdAndUpdate(billId, { $set: billData }, { new: true })
       .exec();
   }
 
-  async deleteBill(id: mongoId): BillType {
-    return await this.billModel.findByIdAndRemove(id);
+  async deleteBill(billId: mongoId): BillType {
+    return await this.billModel.findByIdAndRemove(billId);
   }
 }

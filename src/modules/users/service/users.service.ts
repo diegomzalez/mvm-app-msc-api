@@ -4,10 +4,11 @@ import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
 import { CreateUserDto, FilterUserDto, UpdateUserDto } from '../dto/user.dto';
-import { mongoId } from '../../../types/mongoId.type';
-import User from '../entity/User.entity';
-import { UserArrayType, UserType } from '../types/User.types';
-import UserDocument from '../types/UserDocument';
+import { mongoId } from '../../../types/mongo-id.type';
+import User from '../entity/user.entity';
+import { UserType } from '../types/user.type';
+import UserDocument from '../document/user.document';
+import { UserArrayType } from '../types/user-array.type';
 
 @Injectable()
 export class UsersService {
@@ -21,29 +22,31 @@ export class UsersService {
       .exec();
   }
 
-  async createUser(user: CreateUserDto): UserType {
-    user.password = await bcrypt.hash(user.password, 10);
-    const createdUser = await new this.userModel(user).save();
+  async createUser(userData: CreateUserDto): UserType {
+    userData.password = await bcrypt.hash(userData.password, 10);
+    const createdUser = await new this.userModel(userData).save();
     createdUser.password = '';
     return createdUser;
   }
 
-  async getUser(id: mongoId): UserType {
-    return await this.userModel.findById(id).exec();
+  async getUser(userId: mongoId): UserType {
+    return await this.userModel.findById(userId).exec();
   }
 
   async getUserByEmail(email: string): UserType {
     return await this.userModel.findOne({ email }).select('+password').exec();
   }
 
-  async updateUser(id: mongoId, user: UpdateUserDto): UserType {
+  async updateUser(userId: mongoId, userData: UpdateUserDto): UserType {
     return await this.userModel
-      .findByIdAndUpdate(id, { $set: user }, { new: true })
+      .findByIdAndUpdate(userId, { $set: userData }, { new: true })
       .exec();
   }
 
-  async deleteUser(id: mongoId): UserType {
-    const deletedStudent = await this.userModel.findByIdAndDelete(id).exec();
+  async deleteUser(userId: mongoId): UserType {
+    const deletedStudent = await this.userModel
+      .findByIdAndDelete(userId)
+      .exec();
     deletedStudent.password = '';
     return deletedStudent;
   }

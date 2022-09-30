@@ -9,18 +9,20 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { mongoId } from '../../../types/mongoId.type';
+import { mongoId } from '../../../types/mongo-id.type';
 import { MongoIdPipe } from '../../../common/mongo-id.pipe';
-import Endpoint from '../../../endpoint/Endpoint';
+import Endpoint from '../../../endpoint/endpoint';
 import {
+  AddBillsDto,
   CreateMonthDto,
   deleteBillsDto,
   FilterMonthDto,
   UpdateMonthDto,
-} from '../dto/Month.dto';
+} from '../dto/month.dto';
 import { MonthsService } from '../service/months.service';
-import { MonthType, MonthTypeArray } from '../types/Month.type';
+import { MonthType } from '../types/month.type';
 import { ApiTags } from '@nestjs/swagger';
+import { MonthTypeArray } from '../types/month-array.type';
 
 @ApiTags('months')
 @Controller(Endpoint.monthsEndpoint)
@@ -33,26 +35,34 @@ export class MonthsController {
   }
 
   @Post()
-  async postMonth(@Body() month: CreateMonthDto): MonthType {
-    return await this.monthsService.postMonth(month);
+  async postMonth(@Body() monthData: CreateMonthDto): MonthType {
+    return await this.monthsService.postMonth(monthData);
   }
 
-  @Get(':id')
-  async getMonth(@Param('id') id: mongoId): MonthType {
-    return await this.monthsService.getMonth(id);
+  @Get(':monthId')
+  async getMonth(@Param('monthId') monthId: mongoId): MonthType {
+    return await this.monthsService.getMonth(monthId);
   }
 
-  @Put(':id')
+  @Put(':monthId')
   async updateMonth(
-    @Param('id') id: mongoId,
-    @Body() month: UpdateMonthDto,
+    @Param('monthId') monthId: mongoId,
+    @Body() monthData: UpdateMonthDto,
   ): MonthType {
-    return await this.monthsService.updateMonth(id, month);
+    return await this.monthsService.updateMonth(monthId, monthData);
   }
 
-  @Delete(':id')
-  async deleteMonth(@Param('id') id: mongoId): MonthType {
-    return await this.monthsService.deleteMonth(id);
+  @Put(':monthId/bills')
+  async addBills(
+    @Param('monthId', MongoIdPipe) monthId: mongoId,
+    @Body() billId: AddBillsDto,
+  ): MonthType {
+    return await this.monthsService.addBills(monthId, billId);
+  }
+
+  @Delete(':monthId')
+  async deleteMonth(@Param('monthId') monthId: mongoId): MonthType {
+    return await this.monthsService.deleteMonth(monthId);
   }
 
   @Delete(':monthId/bills')

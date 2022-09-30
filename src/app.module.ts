@@ -9,11 +9,11 @@ import { StudentsModule } from './modules/students/module/students.module';
 import { UsersModule } from './modules/users/module/users.module';
 import { RepresentativesModule } from './modules/representatives/module/representatives.module';
 import { ParentsModule } from './modules/parents/module/parents.module';
-import Endpoint from './endpoint/Endpoint';
-import { MongooseConfigModule } from './database/modules/mongodb/module/mongooseConfig.module';
+import Endpoint from './endpoint/endpoint';
+import { MongooseConfigModule } from './database/modules/mongodb/module/mongoose-config.module';
 import { AuthModule } from './auth/module/auth.module';
-import { RateModule } from './modules/rate/module/rate.module';
-import { CurrencyModule } from './modules/currency/module/currency.module';
+import { RateModule } from './modules/rates/module/rate.module';
+import { CurrenciesModule } from './modules/currencies/module/currencies.module';
 import config from '../config/config';
 import mainEntities from './entities/main.entities';
 import mainDto from './dto/main.dto';
@@ -28,7 +28,7 @@ import mainDto from './dto/main.dto';
     }),
     AuthModule,
     RateModule,
-    CurrencyModule,
+    CurrenciesModule,
     BillsModule,
     MonthsModule,
     StudentsModule,

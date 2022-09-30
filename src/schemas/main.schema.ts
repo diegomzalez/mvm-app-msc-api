@@ -1,6 +1,6 @@
-import { AdultSchema } from './Adult.schema';
-import ClientSchema from './Client.schema';
-import PersonSchema from './Person.schema';
-import StuffSchema from './Stuff.schema';
+import { AdultSchema } from './adult.schema';
+import ClientSchema from './client.schema';
+import PersonSchema from './person.schema';
+import StuffSchema from './stuff.schema';
 
 export default [StuffSchema, PersonSchema, ClientSchema, AdultSchema];

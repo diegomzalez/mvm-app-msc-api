@@ -10,56 +10,70 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import Endpoint from '../../../endpoint/Endpoint';
+import Endpoint from '../../../endpoint/endpoint';
 import {
+  AddChildrenDto,
   CreateParentDto,
   DeleteChildrenDto,
   FilterParentDto,
   UpdateParentDto,
 } from '../dto/parent.dto';
 import { ParentsService } from '../service/parents.service';
-import { ParentType, ParentArrayType } from '../types/Parent.types';
+import { ParentType } from '../types/parent.types';
 import { MongoIdPipe } from '../../../common/mongo-id.pipe';
-import { mongoId } from '../../../types/mongoId.type';
+import { mongoId } from '../../../types/mongo-id.type';
+import { ParentArrayType } from '../types/parent-array.type';
 
 @ApiTags('parents')
 @Controller(Endpoint.parentsEndpoint)
 export class ParentsController {
-  constructor(private readonly service: ParentsService) {}
+  constructor(private readonly parentsService: ParentsService) {}
 
   @Get()
   async getParents(@Query() params?: FilterParentDto): ParentArrayType {
-    return await this.service.getParents(params);
+    return await this.parentsService.getParents(params);
   }
 
   @Post()
   async createParent(@Body() parent: CreateParentDto): ParentType {
-    return await this.service.createParent(parent);
+    return await this.parentsService.createParent(parent);
   }
 
-  @Get(':id')
-  async getParent(@Param('id', MongoIdPipe) id: mongoId): ParentType {
-    return await this.service.getParent(id);
+  @Get(':parentId')
+  async getParent(
+    @Param('parentId', MongoIdPipe) parentId: mongoId,
+  ): ParentType {
+    return await this.parentsService.getParent(parentId);
   }
 
-  @Put(':id')
+  @Put(':parentId')
   async updateParent(
-    @Param('id', MongoIdPipe) id: mongoId,
+    @Param('parentId', MongoIdPipe) parentId: mongoId,
     @Body() parent: UpdateParentDto,
   ): ParentType {
-    return await this.service.updateParent(id, parent);
+    return await this.parentsService.updateParent(parentId, parent);
   }
 
-  @Delete(':id')
-  async deleteParent(@Param('id', MongoIdPipe) id: mongoId): ParentType {
-    return await this.service.deleteParent(id);
+  @Put(':parentId/children')
+  async addChildren(
+    @Param('parentId', MongoIdPipe) parentId: mongoId,
+    @Body() studentId: AddChildrenDto,
+  ): ParentType {
+    return await this.parentsService.addChildren(parentId, studentId);
+  }
+
+  @Delete(':parentId')
+  async deleteParent(
+    @Param('parentId', MongoIdPipe) parentId: mongoId,
+  ): ParentType {
+    return await this.parentsService.deleteParent(parentId);
   }
 
   @Delete(':parentId/children')
   async deleteChildren(
     @Param('parentId', MongoIdPipe) parentId: mongoId,
-    @Body() childrenId: DeleteChildrenDto,
+    @Body() studentId: DeleteChildrenDto,
   ): ParentType {
-    return await this.service.deleteChildren(parentId, childrenId);
+    return await this.parentsService.deleteChildren(parentId, studentId);
   }
 }

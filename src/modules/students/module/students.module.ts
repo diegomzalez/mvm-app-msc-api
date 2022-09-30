@@ -3,9 +3,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { StudentsController } from '../controller/students.controller';
 import { StudentsService } from '../service/students.service';
-import Endpoint from '../../../endpoint/Endpoint';
-import Student from '../entity/Student.entity';
-import StudentSchema from '../schema/Student.schema';
+import Endpoint from '../../../endpoint/endpoint';
+import Student from '../entity/student.entity';
+import StudentSchema from '../schema/student.schema';
 
 @Module({
   controllers: [StudentsController],

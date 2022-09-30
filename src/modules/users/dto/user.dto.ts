@@ -1,7 +1,7 @@
 import { IsString, IsEmail, IsNotEmpty } from 'class-validator';
 import { PartialType } from '@nestjs/swagger';
 
-import { CreatePersonDto } from '../../../dto/Person.dto';
+import { CreatePersonDto } from '../../../dto/person.dto';
 
 export class CreateUserDto extends CreatePersonDto {
   @IsNotEmpty()

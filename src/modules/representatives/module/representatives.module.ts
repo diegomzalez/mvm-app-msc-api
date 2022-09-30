@@ -3,9 +3,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { RepresentativesController } from '../controller/representatives.controller';
 import { RepresentativesService } from '../service/representatives.service';
-import Endpoint from '../../../endpoint/Endpoint';
-import Representative from '../entity/Representative.entity';
-import RepresentativeSchema from '../schema/Representative.schema';
+import Endpoint from '../../../endpoint/endpoint';
+import Representative from '../entity/representative.entity';
+import RepresentativeSchema from '../schema/representative.schema';
 
 @Module({
   controllers: [RepresentativesController],

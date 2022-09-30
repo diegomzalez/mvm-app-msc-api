@@ -1,6 +1,7 @@
 import { PartialType } from '@nestjs/swagger';
 import {
   IsArray,
+  IsDate,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -10,66 +11,82 @@ import {
   Min,
 } from 'class-validator';
 
-import { CreateClientDto } from '../../../dto/Client.dto';
-import { Types } from 'mongoose';
-import Representative from 'src/modules/representatives/entity/Representative.entity';
-import { ParentMongoArray } from '../../parents/types/ParentMongoArray.type';
-import { RepresentativeMongoArray } from '../../representatives/types/RepresentativeMongoArray.type';
-import { MonthMongoArray } from '../../months/types/MonthMongoArray.type';
+import { CreateClientDto } from '../../../dto/client.dto';
+import { mongoId } from '../../../types/mongo-id.type';
 
 export class CreateStudentDto extends CreateClientDto {
-  @IsString()
-  readonly birthday: string;
+  @IsOptional()
+  @IsDate()
+  readonly birthday: Date;
 
+  @IsOptional()
   @IsString()
   readonly birthplace: string;
 
+  @IsOptional()
   @IsString()
   readonly municipality: string;
 
+  @IsOptional()
   @IsString()
   readonly state: string;
 
+  @IsOptional()
   @IsNumber()
   @IsPositive()
   readonly age: number;
 
+  @IsOptional()
   @IsArray()
-  readonly parents: ParentMongoArray;
+  readonly parents: mongoId[];
 
+  @IsOptional()
   @IsArray()
-  readonly representatives: RepresentativeMongoArray;
+  readonly representatives: mongoId[];
 
+  @IsOptional()
   @IsString()
   readonly liveWith: string;
 
+  @IsOptional()
   @IsNumber()
   @Min(0)
   @Max(8)
   @IsNotEmpty()
   readonly exoneration: number;
 
+  @IsOptional()
   @IsString()
   readonly allergies: string;
 
+  @IsOptional()
   @IsArray()
-  readonly paidMonths: MonthMongoArray;
-
-  @IsArray()
-  readonly debts: string[];
+  readonly paidMonths: mongoId[];
 }
 export class UpdateStudentDto extends PartialType(CreateStudentDto) {}
 
-export class DeleteParentsDto {
-  @IsOptional()
+export class AddParentsDto {
+  @IsNotEmpty()
   @IsArray()
-  readonly parents: ParentMongoArray;
+  readonly parents: mongoId[];
 }
 
-export class DeleteRepresentativesDto {
-  @IsOptional()
+export class AddRepresentativeDto {
+  @IsNotEmpty()
   @IsArray()
-  readonly representatives: RepresentativeMongoArray;
+  readonly representatives: mongoId[];
 }
+
+export class AddPaidMonthsDto {
+  @IsNotEmpty()
+  @IsArray()
+  readonly paidMonths: mongoId[];
+}
+
+export class DeleteParentsDto extends AddParentsDto {}
+
+export class DeleteRepresentativesDto extends AddRepresentativeDto {}
+
+export class DeletePaidMonthsDto extends AddPaidMonthsDto {}
 
 export class FilterStudentDto extends UpdateStudentDto {}

@@ -3,9 +3,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { ParentsController } from '../controller/parents.controller';
 import { ParentsService } from '../service/parents.service';
-import Endpoint from '../../../endpoint/Endpoint';
-import Parent from '../entity/Parent.entity';
-import { ParentSchema } from '../schema/Parent.schema';
+import Endpoint from '../../../endpoint/endpoint';
+import Parent from '../entity/parent.entity';
+import { ParentSchema } from '../schema/parent.schema';
 @Module({
   controllers: [ParentsController],
   providers: [ParentsService],

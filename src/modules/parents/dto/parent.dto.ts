@@ -7,8 +7,8 @@ import {
   IsString,
 } from 'class-validator';
 
-import { StudentMongoArray } from '../../students/types/StudentMongoArray.type';
-import { CreateAdultDto } from '../../../dto/Adult.dto';
+import { CreateAdultDto } from '../../../dto/adult.dto';
+import { mongoId } from '../../../types/mongo-id.type';
 
 export class CreateParentDto extends CreateAdultDto {
   @IsOptional()
@@ -21,14 +21,16 @@ export class CreateParentDto extends CreateAdultDto {
 
   @IsOptional()
   @IsArray()
-  readonly children: StudentMongoArray;
+  readonly children: mongoId[];
 }
 export class UpdateParentDto extends PartialType(CreateParentDto) {}
 
-export class DeleteChildrenDto {
+export class AddChildrenDto {
   @IsNotEmpty()
   @IsArray()
-  readonly children: StudentMongoArray;
+  readonly children: mongoId[];
 }
+
+export class DeleteChildrenDto extends AddChildrenDto {}
 
 export class FilterParentDto extends UpdateParentDto {}

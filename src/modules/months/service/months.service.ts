@@ -1,18 +1,20 @@
-import { Injectable, Query } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { mongoId } from '../../../types/mongoId.type';
+import { mongoId } from '../../../types/mongo-id.type';
 
-import Month from '../entity/Month.entity';
-import MonthDocument from '../document/MonthDocument';
+import Month from '../entity/month.entity';
+import MonthDocument from '../document/month.document';
 import {
+  AddBillsDto,
   CreateMonthDto,
   deleteBillsDto,
   FilterMonthDto,
   UpdateMonthDto,
-} from '../dto/Month.dto';
-import { MonthType, MonthTypeArray } from '../types/Month.type';
+} from '../dto/month.dto';
+import { MonthType } from '../types/month.type';
+import { MonthTypeArray } from '../types/month-array.type';
 
 @Injectable()
 export class MonthsService {
@@ -23,28 +25,39 @@ export class MonthsService {
     return await this.monthModel.find(params).populate('bills').exec();
   }
 
-  async postMonth(month: CreateMonthDto): MonthType {
-    return await new this.monthModel(month).save();
+  async postMonth(monthData: CreateMonthDto): MonthType {
+    return await new this.monthModel(monthData).save();
   }
 
-  async getMonth(id: mongoId): MonthType {
-    return await this.monthModel.findById(id).populate('bills').exec();
+  async getMonth(monthId: mongoId): MonthType {
+    return await this.monthModel.findById(monthId).populate('bills').exec();
   }
 
-  async updateMonth(id: mongoId, month: UpdateMonthDto): MonthType {
+  async updateMonth(monthId: mongoId, monthData: UpdateMonthDto): MonthType {
     return await this.monthModel
-      .findByIdAndUpdate(id, { $addToSet: month }, { new: true })
+      .findByIdAndUpdate(monthId, { $set: monthData }, { new: true })
       .exec();
   }
 
-  async deleteMonth(id: mongoId): MonthType {
-    return await this.monthModel.findByIdAndDelete(id).exec();
+  async addBills(monthId: mongoId, billId: AddBillsDto): MonthType {
+    return this.monthModel
+      .findByIdAndUpdate(monthId, { $addToSet: billId }, { new: true })
+      .exec();
   }
 
-  async deleteBills(monthId: mongoId, billsId: deleteBillsDto): MonthType {
-    const month = await this.monthModel.findById(monthId).exec();
-    month.bills.pull(billsId.bills);
-    await month.save();
-    return month;
+  async deleteMonth(monthId: mongoId): MonthType {
+    return await this.monthModel.findByIdAndDelete(monthId).exec();
+  }
+
+  async deleteBills(monthId: mongoId, billId: deleteBillsDto): MonthType {
+    return await this.monthModel
+      .findByIdAndUpdate(
+        monthId,
+        {
+          $pull: { bills: { $in: billId.bills } },
+        },
+        { new: true },
+      )
+      .exec();
   }
 }

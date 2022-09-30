@@ -9,12 +9,13 @@ import {
   Query,
 } from '@nestjs/common';
 
-import Endpoint from '../../../endpoint/Endpoint';
-import { CreateBillDto, FilterBillDto, UpdateBillDto } from '../dto/Bill.dto';
+import Endpoint from '../../../endpoint/endpoint';
+import { CreateBillDto, FilterBillDto, UpdateBillDto } from '../dto/bill.dto';
 import { BillsService } from '../service/bills.service';
-import { BillType, BillTypeArray } from '../types/Bill.types';
-import { mongoId } from '../../../types/mongoId.type';
+import { BillType } from '../types/bill.type';
+import { mongoId } from '../../../types/mongo-id.type';
 import { ApiTags } from '@nestjs/swagger';
+import { BillTypeArray } from '../types/bill-array.type';
 
 @ApiTags('bills')
 @Controller(Endpoint.billsEndpoint)
@@ -27,25 +28,25 @@ export class BillsController {
   }
 
   @Post()
-  async postBill(@Body() bill: CreateBillDto): BillType {
-    return await this.billsService.postBill(bill);
+  async postBill(@Body() billData: CreateBillDto): BillType {
+    return await this.billsService.postBill(billData);
   }
 
-  @Get(':id')
-  async getBill(@Param('id') id: mongoId): BillType {
-    return await this.billsService.getBill(id);
+  @Get(':billId')
+  async getBill(@Param('billId') billId: mongoId): BillType {
+    return await this.billsService.getBill(billId);
   }
 
-  @Put(':id')
+  @Put(':billId')
   async updateBill(
-    @Param('id') id: mongoId,
-    @Body() bill: UpdateBillDto,
+    @Param('billId') billId: mongoId,
+    @Body() billData: UpdateBillDto,
   ): BillType {
-    return await this.billsService.updateBill(id, bill);
+    return await this.billsService.updateBill(billId, billData);
   }
 
-  @Delete(':id')
-  async deleteBill(@Param('id') id: mongoId): BillType {
-    return await this.billsService.deleteBill(id);
+  @Delete(':billId')
+  async deleteBill(@Param('billId') billId: mongoId): BillType {
+    return await this.billsService.deleteBill(billId);
   }
 }
