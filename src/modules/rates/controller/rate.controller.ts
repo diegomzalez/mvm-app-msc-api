@@ -7,6 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { MongoIdPipe } from '../../../common/mongo-id.pipe';
 import Endpoint from '../../../endpoint/endpoint';
@@ -16,6 +17,7 @@ import { RateService } from '../service/rate.service';
 import { RateType } from '../types/rate.type';
 import { RateArrayType } from '../types/rate-array.type';
 
+@ApiTags('rates')
 @Controller(Endpoint.ratesEndpoint)
 export class RateController {
   constructor(private readonly rateService: RateService) {}

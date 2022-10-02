@@ -7,6 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { MongoIdPipe } from '../../../common/mongo-id.pipe';
 import Endpoint from '../../../endpoint/endpoint';
@@ -22,6 +23,7 @@ import { CurrenciesService } from '../service/currencies.service';
 import { CurrencyType } from '../types/currency.type';
 import { CurrencyArrayType } from '../types/currency-array.type';
 
+@ApiTags('currencies')
 @Controller(Endpoint.currenciesEndpoint)
 export class CurrenciesController {
   constructor(private readonly currenciesService: CurrenciesService) {}
