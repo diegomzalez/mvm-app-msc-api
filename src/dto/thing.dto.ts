@@ -7,7 +7,7 @@ import {
   Min,
 } from 'class-validator';
 
-export class CreateStuffDto {
+export class CreateThingDto {
   @IsOptional()
   @IsPositive()
   limit: number;
@@ -21,8 +21,8 @@ export class CreateStuffDto {
   readonly name: string;
 }
 
-export class UpdateStuffDto extends PartialType(CreateStuffDto) {}
+export class UpdateThingDto extends PartialType(CreateThingDto) {}
 
-export class FilterStuffDto extends UpdateStuffDto {}
+export class FilterThingDto extends UpdateThingDto {}
 
-export const stuffDto = [CreateStuffDto, UpdateStuffDto, FilterStuffDto];
+export const thingDto = [CreateThingDto, UpdateThingDto, FilterThingDto];

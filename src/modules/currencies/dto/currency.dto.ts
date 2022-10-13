@@ -3,9 +3,9 @@ import { IsArray, IsNotEmpty, IsOptional } from 'class-validator';
 
 import { mongoId } from '../../../types/mongo-id.type';
 
-import { CreateStuffDto } from '../../../dto/stuff.dto';
+import { CreateThingDto } from '../../../dto/thing.dto';
 
-export class CreateCurrencyDto extends CreateStuffDto {
+export class CreateCurrencyDto extends CreateThingDto {
   @IsOptional()
   @IsArray()
   readonly rates: mongoId[];

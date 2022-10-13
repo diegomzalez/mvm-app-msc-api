@@ -1,9 +1,9 @@
 import { IsString, IsNotEmpty } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 
-import { CreateStuffDto } from './stuff.dto';
+import { CreateThingDto } from './thing.dto';
 
-export class CreatePersonDto extends CreateStuffDto {
+export class CreatePersonDto extends CreateThingDto {
   @IsString()
   @IsNotEmpty()
   readonly middleName: string;

@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-import Stuff from '../entities/stuff.entity';
+import Thing from '../entities/thing.entity';
 
-type StuffDocument = Stuff & Document;
-export default StuffDocument;
+type ThingDocument = Thing & Document;
+export default ThingDocument;

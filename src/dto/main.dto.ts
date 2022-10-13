@@ -1,6 +1,6 @@
 import { adultDto } from './adult.dto';
 import { clientDto } from './client.dto';
 import { personDto } from './person.dto';
-import { stuffDto } from './stuff.dto';
+import { thingDto } from './thing.dto';
 
-export default [...stuffDto, ...personDto, ...clientDto, ...adultDto];
+export default [...thingDto, ...personDto, ...clientDto, ...adultDto];

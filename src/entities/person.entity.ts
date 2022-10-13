@@ -1,9 +1,9 @@
 import { Prop, Schema } from '@nestjs/mongoose';
 
-import Stuff from './stuff.entity';
+import Thing from './thing.entity';
 
 @Schema()
-export default class Person extends Stuff {
+export default class Person extends Thing {
   @Prop({ type: String, required: true, index: true })
   middleName: string;
 

@@ -8,10 +8,10 @@ import {
   IsPositive,
   Min,
 } from 'class-validator';
-import { CreateStuffDto } from '../../../dto/stuff.dto';
+import { CreateThingDto } from '../../../dto/thing.dto';
 import { mongoId } from '../../../types/mongo-id.type';
 
-export class CreateMonthDto extends CreateStuffDto {
+export class CreateMonthDto extends CreateThingDto {
   @IsNotEmpty()
   @IsArray()
   readonly bills: mongoId[];
