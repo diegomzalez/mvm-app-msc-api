@@ -4,7 +4,7 @@ import Relationship from 'src/interfaces/relationship.interface';
 
 import { CreatePersonDto } from './person.dto';
 
-export class CreateClientDto extends CreatePersonDto {
+export class CreateCustomerDto extends CreatePersonDto {
   @IsOptional()
   @IsNumber()
   readonly ci: number;
@@ -17,7 +17,11 @@ export class CreateClientDto extends CreatePersonDto {
   @IsObject()
   readonly relationship: Relationship;
 }
-export class UpdateClientDto extends PartialType(CreateClientDto) {}
+export class UpdateCustomerDto extends PartialType(CreateCustomerDto) {}
 
-export class FilterClientDto extends UpdateClientDto {}
-export const clientDto = [CreateClientDto, UpdateClientDto, FilterClientDto];
+export class FilterCustomerDto extends UpdateCustomerDto {}
+export const customerDto = [
+  CreateCustomerDto,
+  UpdateCustomerDto,
+  FilterCustomerDto,
+];

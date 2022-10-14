@@ -1,4 +1,4 @@
 import { SchemaFactory } from '@nestjs/mongoose';
-import Client from '../entities/client.entity';
+import Customer from '../entities/customer.entity';
 
-export default SchemaFactory.createForClass(Client);
+export default SchemaFactory.createForClass(Customer);

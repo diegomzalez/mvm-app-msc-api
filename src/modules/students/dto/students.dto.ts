@@ -11,10 +11,10 @@ import {
   Min,
 } from 'class-validator';
 
-import { CreateClientDto } from '../../../dto/client.dto';
+import { CreateCustomerDto } from '../../../dto/customer.dto';
 import { mongoId } from '../../../types/mongo-id.type';
 
-export class CreateStudentDto extends CreateClientDto {
+export class CreateStudentDto extends CreateCustomerDto {
   @IsOptional()
   @IsDate()
   readonly birthday: Date;

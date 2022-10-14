@@ -1,9 +1,9 @@
 import { Prop, Schema } from '@nestjs/mongoose';
 
-import Client from './client.entity';
+import Customer from './customer.entity';
 
 @Schema()
-export default class Adult extends Client {
+export default class Adult extends Customer {
   @Prop({ type: String })
   address: string;
 

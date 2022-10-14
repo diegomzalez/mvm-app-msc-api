@@ -1,4 +1,4 @@
-import Client from '../../../entities/client.entity';
+import Customer from '../../../entities/customer.entity';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 
@@ -10,7 +10,7 @@ import { RepresentativeMongoArray } from '../../representatives/types/representa
 import { MonthMongoArray } from '../../months/types/month-mongo-array.type';
 
 @Schema()
-export default class Student extends Client {
+export default class Student extends Customer {
   @Prop({ type: Date })
   birthday: Date;
 

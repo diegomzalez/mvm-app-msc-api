@@ -4,7 +4,7 @@ import Relationship from 'src/interfaces/relationship.interface';
 import Person from './person.entity';
 
 @Schema()
-export default class Client extends Person {
+export default class Customer extends Person {
   @Prop({ type: Number, unique: true })
   ci: number;
 
