@@ -1,6 +1,9 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { IsNumber, IsObject, IsOptional, IsString } from 'class-validator';
+import Relationship from 'src/interfaces/relationship.interface';
+
 import { CreatePersonDto } from './person.dto';
+
 export class CreateClientDto extends CreatePersonDto {
   @IsOptional()
   @IsNumber()
@@ -12,7 +15,7 @@ export class CreateClientDto extends CreatePersonDto {
 
   @IsOptional()
   @IsObject()
-  relationship: object;
+  readonly relationship: Relationship;
 }
 export class UpdateClientDto extends PartialType(CreateClientDto) {}
 
